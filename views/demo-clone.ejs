@@ -3,10 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Leiwei's Website</title>
-    <link href="/modules/angular-material/angular-material.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/app.css" type="text/css">
 </head>
-<body ng-app="MyApp">
+<body ng-app="MyApp" layout="column">
 
+    <md-toolbar>
+        <h1>Angular Material Starter</h1>
+    </md-toolbar>
+
+    <div class="container" layout="row" flex>
+        <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">Sidenav</md-sidenav>
+        <md-content id="content">Content</md-content>
+    </div>
 
 
 <script src="/modules/angular/angular.min.js"></script>
@@ -15,5 +24,6 @@
 <script src="/modules/angular-material/angular-material.min.js"></script>
 
 <script src="/controllers/app.js"></script>
+
 </body>
 </html>
