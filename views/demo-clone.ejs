@@ -4,26 +4,54 @@
     <meta charset="UTF-8">
     <title>Leiwei's Website</title>
     <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
-    <link rel="stylesheet" href="/public/app.css" type="text/css">
+    <link rel="stylesheet" href="/public/demon-clone/app.css" type="text/css">
 </head>
-<body ng-app="MyApp" layout="column">
+<body ng-app="MyApp" layout="column" ng-controller="UserController as ul">
 
-    <md-toolbar>
+    <md-toolbar layout="row">
+        <md-button class="menu" ng-click="ul.toggleList()" hide-gt-sm aria-label="Menu">
+            <md-icon md-svg-src="/public/svg/menu.svg"></md-icon>
+        </md-button>
         <h1>Angular Material Starter</h1>
     </md-toolbar>
 
     <div class="container" layout="row" flex>
-        <md-sidenav md-is-locked-open="true" class="md-whiteframe-4dp">Sidenav</md-sidenav>
-        <md-content id="content">Content</md-content>
+        <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-4dp" md-component-id="left">
+            <md-list ng-click="ul.toggleList()">
+                <md-list-item ng-repeat="u in ul.users">
+                    <md-button ng-click="ul.selectUser(u)">
+                        <md-icon md-svg-src="/public/svg/{{u.avatar}}" class="avatar"></md-icon>
+                        {{u.name}}
+                    </md-button>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+
+        <md-content id="content" flex>
+            <md-icon md-svg-src="/public/svg/{{ul.selected.avatar}}" class="avatar"></md-icon>
+            <h2>{{ul.selected.name}}</h2>
+            <p>
+                {{ul.selected.content}}
+            </p>
+
+            <!--problem with "share" button-->
+            <md-button class="share" md-no-ink aria-label="Share with {{ul.selected.name}}" ng-click="ul.share(ul.selected)">
+                <md-icon md-svg-src="/public/svg/share.svg"></md-icon>
+            </md-button>
+        </md-content>
     </div>
 
 
-<script src="/modules/angular/angular.min.js"></script>
-<script src="/modules/angular-animate/angular-animate.min.js"></script>
-<script src="/modules/angular-aria/angular-aria.min.js"></script>
-<script src="/modules/angular-material/angular-material.min.js"></script>
+    <script src="/modules/angular/angular.min.js"></script>
+    <script src="/modules/angular-animate/angular-animate.min.js"></script>
+    <script src="/modules/angular-aria/angular-aria.min.js"></script>
+    <script src="/modules/angular-material/angular-material.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script>
 
-<script src="/controllers/app.js"></script>
+    <script src="/controllers/demon-clone/app.js"></script>
+    <!--<script src="/controllers/demon-clone/Users.js"></script>-->
+    <!--<script src="/controllers/demon-clone/UserService.js"></script>-->
+    <!--<script src="/controllers/demon-clone/UserController.js"></script>-->
 
 </body>
 </html>

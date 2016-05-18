@@ -1,0 +1,15 @@
+<md-bottom-sheet>
+    <md-subheader class="name">
+        Contact: {{vm.user.name}}
+    </md-subheader>
+
+    <md-list>
+        <md-item ng-repeat="item in vm.items">
+            <md-button ng-click="vm.performAction()">
+                <!--ng-click on icon not working-->
+                <md-icon md-svg-src="{{item.icon_url}}"></md-icon>
+                {{item.name}}
+            </md-button>
+        </md-item>
+    </md-list>
+</md-bottom-sheet>
