@@ -21,4 +21,8 @@ app.get('/demo-clone', function(req, res) {
     res.render('demo-clone');
 });
 
+app.get('/hungry', function(req, res) {
+    res.render('hungry');
+});
+
 app.listen(port);

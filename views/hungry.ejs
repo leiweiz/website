@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leiwei's Website</title>
+    <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/hungry/mystyle.css" type="text/css">
+
+    <link rel="stylesheet" href="/client/controllers/hungry/components/foods/foodsStyle.css" type="text/css">
+
+    <link rel="stylesheet" href="/client/controllers/hungry/components/my-cooking/myCookingStyle.css" type="text/css">
+    <link rel="stylesheet" href="/client/controllers/hungry/components/settings/settingsStyle.css" type="text/css">
+
+</head>
+<body ng-app="MyApp" layout="column" ng-controller="HungryController as hc">
+
+<md-toolbar layout="row">
+    <md-button class="menu" ng-click="hc.toggleList()" hide-gt-sm aria-label="Menu">
+        <md-icon md-svg-src="/public/svg/menu.svg"></md-icon>
+    </md-button>
+    <h1>{{hc.selectedOption.name}}</h1>
+</md-toolbar>
+
+<div class="container" layout="row" flex>
+    <md-sidenav md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-4dp" md-component-id="left">
+        <md-list ng-click="hc.toggleList()">
+            <md-list-item ng-repeat="option in hc.options">
+                <md-button ng-click="hc.selectOption(option)">
+                    <md-icon md-svg-src="/public/svg/{{option.image}}" class="avatar"></md-icon>
+                    {{option.name}}
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-sidenav>
+
+    <md-content id="content" flex>
+        <div ng-view></div>
+    </md-content>
+</div>
+
+
+<script src="/modules/angular/angular.min.js"></script>
+<script src="/modules/angular-animate/angular-animate.min.js"></script>
+<script src="/modules/angular-aria/angular-aria.min.js"></script>
+<script src="/modules/angular-material/angular-material.min.js"></script>
+<script src="/modules/angular-route/angular-route.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script>
+
+<script src="/client/controllers/hungry/app.js"></script>
+<script src="/client/controllers/hungry/components/foods/foodsController.js"></script>
+<script src="/client/controllers/hungry/components/my-cooking/myCookingController.js"></script>
+<script src="/client/controllers/hungry/components/settings/settingsController.js"></script>
+
+
+</body>
+</html>
