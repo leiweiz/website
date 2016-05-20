@@ -7,7 +7,7 @@ var app = express();
 var port = process.env.PORT || 3000;
 
 app.use('/modules', express.static(__dirname + '/node_modules'));
-app.use('/controllers', express.static(__dirname + '/controllers'));
+app.use('/client/controllers', express.static(__dirname + '/client/controllers'));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/views', express.static(__dirname + '/views'));
 
