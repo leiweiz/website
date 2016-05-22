@@ -15,9 +15,12 @@
     "angular-material": "^1.0.8",
     "angular-messages": "^1.5.5",
     "angular-mocks": "^1.5.5",
+    "angular-resource": "^1.5.5",
     "angular-route": "^1.5.5",
     "angular-sanitize": "^1.5.5",
+    "body-parser": "^1.15.1",
     "ejs": "^2.4.1",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "mongoose": "^4.4.17"
   }
 }

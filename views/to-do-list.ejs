@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leiwei's Website</title>
+    <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <link rel="stylesheet" href="/client/controllers/to-do-list/mystyle.css" type="text/css">
+</head>
+<body ng-app="MyApp" layout="column" ng-controller="UserFormController as ufc">
+
+<!--<form method="POST" action="/to-do-list">-->
+    <!--<input type="text" name="firstname"/>-->
+    <!--<input type="submit" value="submit">-->
+<!--</form>-->
+
+<div layout="column" ng-cloak class="md-inline-form">
+    <md-content layout-padding>
+        <div>
+            <form name="userForm">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>First name</label>
+                        <input ng-model="user.firstname"/>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Last Name</label>
+                        <input ng-model="user.lastname"/>
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Avatar</label>
+                        <input ng-model="user.avatar"/>
+                    </md-input-container>
+                </div>
+                <md-input-container class="md-block">
+                    <label>Address</label>
+                    <input ng-model="user.address"/>
+                </md-input-container>
+                <md-input-container md-no-float class="md-block">
+                    <label>Content</label>
+                    <input ng-model="user.content"/>
+                </md-input-container>
+                <md-button ng-click="submitForm()">Submit</md-button>
+            </form>
+        </div>
+    </md-content>
+</div>
+
+<div>
+    <md-content>
+        <md-list>
+            <md-list-item class="md-3-line" ng-repeat="user in userList">
+                <img ng-src="/public/svg/{{user.avatar}}" class="md-avatar" alt="avatar" />
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{user.firstname}} {{user.lastname}}</h3>
+                    <h4>{{user.address}}</h4>
+                    <p>{{user.content}}</p>
+                </div>
+            </md-list-item>
+        </md-list>
+    </md-content>
+</div>
+
+
+<script src="/modules/angular/angular.min.js"></script>
+<script src="/modules/angular-animate/angular-animate.min.js"></script>
+<script src="/modules/angular-aria/angular-aria.min.js"></script>
+<script src="/modules/angular-material/angular-material.min.js"></script>
+<script src="/modules/angular-route/angular-route.min.js"></script>
+<script src="/modules/angular-resource/angular-resource.js"></script>
+
+
+<script src="/client/controllers/to-do-list/app.js"></script>
+
+
+</body>
+</html>
