@@ -6,8 +6,8 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
-var toDolistController = require('./controller/toDoListController.js');
-var demoCloneController = require('./controller/demoCloneController.js');
+var toDolistController = require('./controllers/toDoListController.js');
+var demoCloneController = require('./controllers/demoCloneController.js');
 
 app.use('/modules', express.static(__dirname + '/node_modules'));
 app.use('/client/controllers', express.static(__dirname + '/client/controllers'));
