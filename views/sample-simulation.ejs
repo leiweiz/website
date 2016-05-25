@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Leiwei's Website</title>
     <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <link rel="stylesheet" href="/client/controllers/sample-simulation/mystyle.css" type="text/css">
     <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body ng-app="MyApp" layout="row" ng-controller="SimulationController as sc">
@@ -19,12 +20,40 @@
     </div>
 
     <div layout="column" flex>
-        <div layout-align="center center" flex>
+        <div class="md-whiteframe-1dp">
             <md-input-container>
                 <label>Number of steps</label>
                 <input ng-model="step">
             </md-input-container>
             <md-button class="md-raised" ng-click="simulate(step)">Simulate</md-button>
+        </div>
+
+        <div class="md-whiteframe-1dp virtualRepeatHorizontalUsage">
+            <p>Selected sample indices</p>
+            <md-virtual-repeat-container id="horizontal-container" md-orient-horizontal>
+                <div md-virtual-repeat="index in selectedIndices"
+                     class="repeated-item" flex>
+                    {{index}}
+                </div>
+            </md-virtual-repeat-container>
+        </div>
+
+        <div class="md-whiteframe-1dp">
+            <p>Current probability: {{probability}}</p>
+            <p>Updated sample index: {{updatedSampleIndex}}</p>
+            <p>Updated time: {{updatedTime}}</p>
+        </div>
+
+        <div class="md-whiteframe-1dp virtualRepeatLoading">
+            <p>Selected sample state</p>
+            <md-virtual-repeat-container id="vertical-container">
+                <div md-virtual-repeat="selectedSample in selectedSamples"
+                     class="repeated-item" flex>
+                    index: {{selectedSample.xAxis}};
+                    state: {{selectedSample.curStateIndex}};
+                    range: {{selectedSample.getProbabilityRange()}}
+                </div>
+            </md-virtual-repeat-container>
         </div>
     </div>
 

@@ -1,0 +1,33 @@
+.virtualRepeatHorizontalUsage #horizontal-container {
+    height: 100px;
+    width: 100%;
+    max-width: 830px; }
+.virtualRepeatHorizontalUsage .repeated-item {
+    border-right: 1px solid #ddd;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 84px;
+    padding-top: 35px;
+    text-align: center;
+    width: 50px; }
+.virtualRepeatHorizontalUsage md-content {
+    margin: 16px; }
+.virtualRepeatHorizontalUsage md-virtual-repeat-container {
+    border: solid 1px grey; }
+
+
+.virtualRepeatLoading #vertical-container {
+    height: 240px;
+    width: 100%;
+    max-width: 400px; }
+.virtualRepeatLoading .repeated-item {
+    border-bottom: 1px solid #ddd;
+    box-sizing: border-box;
+    height: 40px;
+    padding-top: 10px; }
+.virtualRepeatLoading md-content {
+    margin: 16px; }
+.virtualRepeatLoading md-virtual-repeat-container {
+    border: solid 1px grey; }
+.virtualRepeatLoading .md-virtual-repeat-container .md-virtual-repeat-offsetter div {
+    padding-left: 16px; }

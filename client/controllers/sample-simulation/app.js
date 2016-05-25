@@ -14,6 +14,12 @@ app.controller('SimulationController', ['$scope', 'SampleService', 'SettingServi
         var simulation = new SimulationService.SimulationFactory(Plotly, 'mySim', 'myTime',
             UtilsService, SettingService, SampleService.Sample);
 
+        $scope.selectedIndices = simulation.selectedIndices;
+        $scope.probability = simulation.probability;
+        $scope.updatedSampleIndex = simulation.updatedSampleIndex;
+        $scope.updatedTime = simulation.updatedTime;
+        $scope.selectedSamples = simulation.selectedSamples;
+
         simulation.draw();
 
         $scope.simulate = function(step) {
@@ -21,6 +27,10 @@ app.controller('SimulationController', ['$scope', 'SampleService', 'SettingServi
             if (value > 0) {
                 for(var i = 0; i < step; i++) {
                     simulation.simulate();
+                    $scope.probability = simulation.probability;
+                    $scope.updatedSampleIndex = simulation.updatedSampleIndex;
+                    $scope.updatedTime = simulation.updatedTime;
+                    $scope.selectedSamples = simulation.selectedSamples;
                 }
             }
         }

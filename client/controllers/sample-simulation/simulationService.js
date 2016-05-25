@@ -22,6 +22,10 @@ app.service('SimulationService', function() {
         this.settings = settings;
         this.SampleConstructor = SampleConstructor;
 
+        this.probability = 0;
+        this.updatedSampleIndex = -1;
+        this.updatedTime = 0;
+
         for(var i = 0; i < settings.totalSamples; i++) {
             this.samples.push(new this.SampleConstructor(i));
         }
@@ -56,6 +60,7 @@ app.service('SimulationService', function() {
             var sample = this.selectedSamples[i];
             if( probability <= sample.probRange) {
                 console.log('Generated probability: ' + probability + ' index: ' + this.selectedIndices[i]);
+                this.updatedSampleIndex = this.selectedIndices[i];
                 this.probLen -= sample.state; // remove cur state
                 sample.yAxis++;
                 sample.updateState();
@@ -68,13 +73,15 @@ app.service('SimulationService', function() {
     };
 
     MainSimulation.prototype.simulate = function() {
-        var probability = this.utils.generateZero2OneInclude();
-        this.update(probability);
+        this.probability = this.utils.generateZero2OneInclude();
+        this.update(this.probability);
 
         this.timeX.push(++this.timeCount);
 
+        // update time
+        this.updatedTime = this.utils.generateZero2One();
         var prevTotalTime = this.timeY[this.timeY.length-1];
-        this.timeY.push(prevTotalTime + this.utils.generateZero2One());
+        this.timeY.push(prevTotalTime + this.updatedTime);
 
         this.draw();
     };

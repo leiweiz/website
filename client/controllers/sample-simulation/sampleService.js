@@ -22,5 +22,9 @@ app.service('SampleService', function() {
         }
     };
 
+    Sample.prototype.getProbabilityRange = function() {
+        return String(this.probRange).substr(0, 4);
+    };
+
     Sample.states = [1, 2];
 });
