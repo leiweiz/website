@@ -27,11 +27,11 @@ app.controller('SimulationController', ['$scope', 'SampleService', 'SettingServi
             if (value > 0) {
                 for(var i = 0; i < step; i++) {
                     simulation.simulate();
-                    $scope.probability = simulation.probability;
-                    $scope.updatedSampleIndex = simulation.updatedSampleIndex;
-                    $scope.updatedTime = simulation.updatedTime;
-                    $scope.selectedSamples = simulation.selectedSamples;
                 }
+                $scope.probability = simulation.probability;
+                $scope.updatedSampleIndex = simulation.updatedSampleIndex;
+                $scope.updatedTime = simulation.updatedTime;
+                $scope.selectedSamples = simulation.selectedSamples;
             }
         }
 

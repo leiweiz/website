@@ -3,7 +3,7 @@
  */
 
 app.service('SettingService', function() {
-    this.totalSamples = 10;
+    this.totalSamples = 30;
     this.proportion = 0.6;
     this.selectedSamples = this.totalSamples * this.proportion;
     this.totalSteps = 10;

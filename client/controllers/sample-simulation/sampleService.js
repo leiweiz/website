@@ -26,5 +26,5 @@ app.service('SampleService', function() {
         return String(this.probRange).substr(0, 4);
     };
 
-    Sample.states = [1, 2];
+    Sample.states = [0.2, 0.3, 0.4, 0.5];
 });

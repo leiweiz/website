@@ -35,7 +35,7 @@ app.service('UtilsService', function() {
             unique[value] = true;
             result.push(value);
         }
-        return result.sort();
+        return result.sort(function(a, b){return a-b});
     }
 
     function printProbRanges(samples) {

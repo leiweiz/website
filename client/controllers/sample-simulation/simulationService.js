@@ -102,7 +102,8 @@ app.service('SimulationService', function() {
         var trace1 = {
             x: x,
             y: y,
-            type: 'scatter'
+            type: 'scatter',
+            name: 'count line'
         };
 
         var trace2 = {
