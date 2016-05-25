@@ -1,0 +1,26 @@
+/**
+ * Created by lei on 5/24/16.
+ */
+
+app.service('SampleService', function() {
+
+    this.Sample = Sample;
+
+    function Sample(xAxis) {
+        this.xAxis = xAxis;
+        this.yAxis = 0;
+        this.probRange = 0;
+        this.curStateIndex = -1;
+        this.state = 0;
+    }
+
+    Sample.prototype.updateState = function() {
+        // length - 1
+        if(this.curStateIndex < Sample.states.length -1) {
+            this.curStateIndex++;
+            this.state = Sample.states[this.curStateIndex];
+        }
+    };
+
+    Sample.states = [1, 2];
+});

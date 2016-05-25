@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leiwei's Website</title>
+    <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body ng-app="MyApp" layout="row" ng-controller="SimulationController as sc">
+
+
+    <div layout="column" flex="50" class="md-whiteframe-1dp">
+        <div style="height:50%">
+            <div id="mySim"></div>
+        </div>
+        <div style="height:50%">
+            <div id="myTime"></div>
+        </div>
+    </div>
+
+    <div layout="column" flex>
+        <div layout-align="center center" flex>
+            <md-input-container>
+                <label>Number of steps</label>
+                <input ng-model="step">
+            </md-input-container>
+            <md-button class="md-raised" ng-click="simulate(step)">Simulate</md-button>
+        </div>
+    </div>
+
+
+<script src="/modules/angular/angular.min.js"></script>
+<script src="/modules/angular-animate/angular-animate.min.js"></script>
+<script src="/modules/angular-aria/angular-aria.min.js"></script>
+<script src="/modules/angular-material/angular-material.min.js"></script>
+
+
+
+<script src="/client/controllers/sample-simulation/app.js"></script>
+<script src="/client/controllers/sample-simulation/settingService.js"></script>
+<script src="/client/controllers/sample-simulation/sampleService.js"></script>
+<script src="/client/controllers/sample-simulation/utilsService.js"></script>
+<script src="/client/controllers/sample-simulation/simulationService.js"></script>
+
+</body>
+</html>

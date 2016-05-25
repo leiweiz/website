@@ -6,8 +6,8 @@
 var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
-var toDolistController = require('./controllers/toDoListController.js');
-var demoCloneController = require('./controllers/demoCloneController.js');
+//var toDoListController = require('./controllers/toDoListController.js');
+//var demoCloneController = require('./controllers/demoCloneController.js');
 
 app.use('/modules', express.static(__dirname + '/node_modules'));
 app.use('/client/controllers', express.static(__dirname + '/client/controllers'));
@@ -24,9 +24,13 @@ app.get('/hungry', function(req, res) {
     res.render('hungry');
 });
 
-// to-do-list app
-toDolistController(app);
-// demo-clone app
-demoCloneController(app);
+app.get('/sample-simulation', function(req, res) {
+    res.render('sample-simulation');
+});
+
+//// to-do-list app
+//toDoListController(app);
+//// demo-clone app
+//demoCloneController(app);
 
 app.listen(port);
