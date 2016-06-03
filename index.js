@@ -13,6 +13,8 @@ app.use('/modules', express.static(__dirname + '/node_modules'));
 app.use('/client/controllers', express.static(__dirname + '/client/controllers'));
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/views', express.static(__dirname + '/views'));
+app.use('/images', express.static(__dirname + '/public/images'));
+app.use('/icons', express.static(__dirname + '/public/icons'));
 
 app.set('view engine', 'ejs');
 

@@ -8,7 +8,7 @@ html, body {
 
 md-toolbar h3 {
     margin: auto;
-    font-weight: 500;
+    font-weight: 300;
 }
 
 md-list-item > button {
