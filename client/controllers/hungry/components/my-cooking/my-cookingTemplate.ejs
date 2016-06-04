@@ -1,1 +1,118 @@
-<p>my-cookingTemplate</p>
+<div layout-wrap layout="row" layout-lt-sm="column" layout-align="center">
+    <md-card flex-gt-sm="40">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="md-user-avatar" src="/images/beef.jpg"/>
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">User</span>
+                <span class="md-subhead">Address</span>
+            </md-card-header-text>
+        </md-card-header>
+        <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Food name</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <p>
+                food description
+            </p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-card-icon-actions>
+                <md-button class="md-icon-button" aria-label="Edit">
+                    <md-icon md-svg-icon="/icons/edit.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Delete">
+                    <md-icon md-svg-icon="/icons/delete.svg"></md-icon>
+                </md-button>
+            </md-card-icon-actions>
+            <md-button>Action 1</md-button>
+        </md-card-actions>
+    </md-card>
+
+    <md-card flex-gt-sm="40">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="md-user-avatar" src="/images/beef.jpg"/>
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">User</span>
+                <span class="md-subhead">Address</span>
+            </md-card-header-text>
+        </md-card-header>
+        <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Food name</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <p>
+                food description
+            </p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-card-icon-actions>
+                <md-button class="md-icon-button" aria-label="Edit">
+                    <md-icon md-svg-icon="/icons/edit.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Delete">
+                    <md-icon md-svg-icon="/icons/delete.svg"></md-icon>
+                </md-button>
+            </md-card-icon-actions>
+            <md-button>Action 1</md-button>
+        </md-card-actions>
+    </md-card>
+
+    <md-card flex-gt-sm="40">
+        <md-card-header>
+            <md-card-avatar>
+                <img class="md-user-avatar" src="/images/beef.jpg"/>
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title">User</span>
+                <span class="md-subhead">Address</span>
+            </md-card-header-text>
+        </md-card-header>
+        <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Food name</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+            <p>
+                food description
+            </p>
+        </md-card-content>
+        <md-card-actions layout="row" layout-align="start center">
+            <md-card-icon-actions>
+                <md-button class="md-icon-button" aria-label="Edit">
+                    <md-icon md-svg-icon="/icons/edit.svg"></md-icon>
+                </md-button>
+                <md-button class="md-icon-button" aria-label="Delete">
+                    <md-icon md-svg-icon="/icons/delete.svg"></md-icon>
+                </md-button>
+            </md-card-icon-actions>
+            <md-button>Action 1</md-button>
+        </md-card-actions>
+    </md-card>
+</div>
+
+<div id="my-cooking-menu" ng-cloak class="lock-size" layout="row">
+    <md-fab-speed-dial md-open="isOpen" md-direction="{{selectedDirection}}" ng-class="selectedMode">
+        <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-warn">
+                <md-icon md-svg-src="/icons/menu.svg"></md-icon>
+            </md-button>
+        </md-fab-trigger>
+        <md-fab-actions>
+            <md-button aria-label="Twitter" class="md-fab md-raised md-mini" ng-click="showAddFood($event)">
+                <md-icon md-svg-src="/icons/add.svg" aria-label="Add"></md-icon>
+            </md-button>
+        </md-fab-actions>
+    </md-fab-speed-dial>
+</div>

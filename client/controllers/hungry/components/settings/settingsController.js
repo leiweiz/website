@@ -3,6 +3,6 @@
  */
 
 app.controller('SettingsController', ['$scope', '$routeParams',
-    function ($scope, $routeParams, $location, $resource) {
+    function ($scope, $routeParams) {
 
     }]);

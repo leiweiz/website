@@ -1,0 +1,28 @@
+<md-dialog aria-label="New food"  ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>New Food</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>First name</label>
+                        <input ng-model="newFood.name">
+                    </md-input-container>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row" layout-align="end">
+            <md-button ng-click="submit()">
+                Submit
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

@@ -7,18 +7,17 @@
     <link rel="stylesheet" href="/public/hungry/mystyle.css" type="text/css">
 
     <link rel="stylesheet" href="/client/controllers/hungry/components/foods/foodsStyle.css" type="text/css">
-
     <link rel="stylesheet" href="/client/controllers/hungry/components/my-cooking/myCookingStyle.css" type="text/css">
     <link rel="stylesheet" href="/client/controllers/hungry/components/settings/settingsStyle.css" type="text/css">
 
 </head>
 <body ng-app="MyApp" layout="column" ng-controller="HungryController as hc">
 
-<md-toolbar layout="row" class="md-medium-tall">
-    <md-button class="menu" ng-click="hc.toggleList()" hide-gt-sm aria-label="Menu">
+<md-toolbar layout="row" layout-align="center" class="md-medium-tall">
+    <md-button flex class="menu" ng-click="hc.toggleList()" hide-gt-sm aria-label="Menu">
         <md-icon md-svg-src="/public/svg/menu.svg"></md-icon>
     </md-button>
-    <h1>{{hc.selectedOption.name}}</h1>
+    <h1 class="md-toolbar-item">{{hc.selectedOption.name}}</h1>
 </md-toolbar>
 
 <div class="container" layout="row" flex>
