@@ -12,7 +12,7 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
                 controller: DialogController,
-                templateUrl: '/client/controllers//hungry/components/my-cooking/addFoodDialogTemplate.ejs',
+                templateUrl: '/client/controllers/hungry/components/my-cooking/addFoodDialogTemplate.ejs',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true,
