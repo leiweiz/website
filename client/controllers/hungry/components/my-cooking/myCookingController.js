@@ -2,8 +2,8 @@
  * Created by lei on 5/19/16.
  */
 
-app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$mdDialog',
-    function ($scope, $routeParams, $mdMedia, $mdDialog) {
+app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast',
+    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast) {
         $scope.selectedDirection = 'up';
         $scope.selectedMode = 'md-fling';
         $scope.isOpen = false;
@@ -20,14 +20,26 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
             })
                 .then(function() {
                     $scope.status = 'succeed';
+                    $scope.showSimpleToast('added new food');
                 }, function() {
                     $scope.status = 'You cancelled the dialog.';
+                    $scope.showSimpleToast('cancelled');
                 });
             $scope.$watch(function() {
                 return $mdMedia('xs') || $mdMedia('sm');
             }, function(wantsFullScreen) {
                 $scope.customFullscreen = (wantsFullScreen === true);
             });
+        };
+
+        $scope.showSimpleToast = function(message) {
+            var pinTo = "top right";
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position(pinTo )
+                    .hideDelay(2000)
+            );
         };
 
     }]);

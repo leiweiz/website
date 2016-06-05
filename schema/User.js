@@ -5,14 +5,28 @@
 
 var mongoose = require('mongoose');
 
-var userSchema = new mongoose.Schema({
-    firstname: String,
-    lastname: String,
-    avatar: String,
-    content: String,
-    user_id: mongoose.Schema.Types.ObjectId
+var addressSchema = new mongoose.Schema({
+    id: String,
+    address: String,     // The text of the comment.
+    city: String,
+    state: String,
+    zip_code: String
 });
 
+// create a schema
+var userSchema = new mongoose.Schema({
+    id: String,     // Unique ID identifying this user
+    first_name: String, // First name of the user.
+    last_name: String,  // Last name of the user.
+    login_name: String,
+    password: String,
+    address: addressSchema,
+    telephone: String
+});
+
+// the schema is useless so far
+// we need to create a model using it
 var User = mongoose.model('User', userSchema);
 
+// make this available to our users in our Node applications
 module.exports = User;

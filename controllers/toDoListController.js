@@ -4,7 +4,7 @@
 
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var User = require('../schema/User.js');
+var User = require('../schema/user.js');
 mongoose.connect('mongodb://localhost/todolist');
 //var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jasonParser = bodyParser.json();
