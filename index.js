@@ -20,6 +20,8 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var multer = require('multer');
 
+var saltPassword = require('./utils/saltPassword');
+
 app.use(session({secret: 'secretKey', resave: false, saveUninitialized: false}));
 app.use(bodyParser.json());
 var processFormBody = multer({storage: multer.memoryStorage()}).single('uploadedphoto');
@@ -143,7 +145,70 @@ app.post('/photos/new', function(req, res) {
 
 // register
 app.post('/user', function(req, res) {
+    console.log('post /user');
 
+    User.findOne({login_name: req.body.login_name}, function(err, user){
+        console.log('/user User.findOne: ', user);
+        if(err) {
+            console.log('error: /user User.findOne');
+            res.status(500).json({"error": err});
+            return;
+        }
+
+        if(user) {
+            console.log('error: /user user found');
+            res.status(400).json({"error": "user already existed"});
+            return;
+        }
+
+        var saltedPassword = saltPassword.makePasswordEntry(req.body.password);
+        delete req.body.password;
+
+        req.body.password_digest = saltedPassword.hash;
+        req.body.salt = saltedPassword.salt;
+
+        User.create(req.body, function(err, newUser) {
+            console.log('/user User.create');
+            if (err) {
+                console.log("error: /user User.create");
+                res.status(500).json({"error": err});
+                return;
+            }
+            console.log('succeed: /user User.create');
+            req.session.user = newUser;
+            return res.status(200).json({"succeed": "login succeed"});
+        });
+    });
+});
+
+// login
+app.post('/admin/login', function(req, res){
+    console.log('post /admin/login: ', req.body);
+
+    User.findOne({login_name: req.body.login_name}, function(err, user) {
+        console.log('/admin/login findOne');
+
+        if (err) {
+            console.log('error: User.findOne');
+            return res.status(500).json({"error": err});
+        }
+
+        if (!user) {
+            console.log('user is not exist: ', user);
+            return res.status(401).json({"error": "user not found"});
+        }
+
+        console.log('succeed: /admin/login');
+        if (saltPassword.doesPasswordMatch(user.password_digest, user.salt, req.body.password)) {
+            console.log('succeed: /admin/login');
+            req.session.user = user;
+            return res.status(200).json({"succeed": "login succeed"});
+        } else {
+            console.log('error: /admin/login');
+            return res.status(401).json({"error": "password is wrong"});
+        }
+
+    });
 });
 
 app.listen(port);

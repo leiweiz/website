@@ -19,7 +19,8 @@ var userSchema = new mongoose.Schema({
     first_name: String, // First name of the user.
     last_name: String,  // Last name of the user.
     login_name: String,
-    password: String,
+    password_digest: String,
+    salt: String,
     address: addressSchema,
     telephone: String
 });
