@@ -91,8 +91,7 @@ app.post('/photosOfUser/:user_id', function(req, res) {
     Photo.find({_id: id}, function(err, photos) {
         if (err) {
             console.log('error: post /photosOfUser/:user_id Photo.find({_id})');
-            res.status(500).json({"error": err});
-            return;
+            return res.status(500).json({"error": err});
         }
 
         console.log('succeed: post /photosOfUser/:user_id Photo.find({_id})');
@@ -101,18 +100,13 @@ app.post('/photosOfUser/:user_id', function(req, res) {
 });
 
 // create new photo
-// TODO after register
 app.post('/photos/new', function(req, res) {
     console.log('post /photos/new');
 
-    //var user_id = req.body.user_id; // TODO: replace with req.session.user._id
-    //var description = req.body.description;
-
     processFormBody(req, res, function (err) {
         if (err || !req.file) {
-            console.log("error: /photos/new form body");
-            res.status(500).json({"error": err});
-            return;
+            console.log("error: /photos/new formBody");
+            return res.status(500).json({"error": err});
         }
         var timestamp = new Date().valueOf();
         var filename = 'U' +  String(timestamp) + req.file.originalname;
@@ -121,24 +115,23 @@ app.post('/photos/new', function(req, res) {
 
             if (err) {
                 console.log("error: writeFile /photos/new");
-                res.status(500).json({"error": err});
-                return;
+                return res.status(500).json({"error": err});
             }
 
-            var newPhoto = new Photo({
+            Photo.create({
                 file_name: filename,
                 date_time: timestamp,
                 user_id: req.session.user._id
-            });
-            newPhoto.save(function(err) {
+            }, function(err, newPhoto) {
+                console.log('Photo.create: ', newPhoto);
                 if(err) {
-                    console.log('error: /photos/new newPhoto save');
-                    response.status(500).json({"error": err});
-                    return;
+                    console.log('error: /photos/new Photo.create');
+                    return res.status(500).json({"error": err});
                 }
+                console.log('succeed: /photos/new create new photo');
+                res.status(200).json({"photo": newPhoto});
             });
-            console.log('succeed: /photos/new create new photo');
-            response.status(200).json({filename: filename});
+
         });
     });
 });
