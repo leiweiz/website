@@ -1,4 +1,4 @@
-<md-dialog aria-label="New food"  ng-cloak>
+<md-dialog aria-label="New food" ng-cloak flex="66">
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
@@ -13,11 +13,18 @@
             <div class="md-dialog-content">
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label>First name</label>
-                        <input ng-model="newFood.name">
+                        <label>Food Description</label>
+                        <input ng-model="newFood.description">
                     </md-input-container>
                 </div>
+                <div layout-gt-sm="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <lf-ng-md-file-input lf-files="files" preview></lf-ng-md-file-input>
+                    </md-input-container>
+                </div>
+                <!--<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)">-->
             </div>
+
         </md-dialog-content>
         <md-dialog-actions layout="row" layout-align="end">
             <md-button ng-click="submit()">

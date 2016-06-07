@@ -24,7 +24,7 @@ var saltPassword = require('./utils/saltPassword');
 
 app.use(session({secret: 'secretKey', resave: false, saveUninitialized: false}));
 app.use(bodyParser.json());
-var processFormBody = multer({storage: multer.memoryStorage()}).single('uploadedphoto');
+var upload = multer({storage: multer.memoryStorage()});
 
 app.use(express.static(__dirname));
 app.use('/modules', express.static(__dirname + '/node_modules'));
@@ -100,39 +100,42 @@ app.post('/photosOfUser/:user_id', function(req, res) {
 });
 
 // create new photo
-app.post('/photos/new', function(req, res) {
+app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
     console.log('post /photos/new');
+    var description = req.body.description;
+    console.log('description: ', description);
+    console.log('req.file: ', req.file);
 
-    processFormBody(req, res, function (err) {
-        if (err || !req.file) {
-            console.log("error: /photos/new formBody");
+    if (!req.file) {
+        console.log("error: file not uploaded");
+        return res.status(500).json({"error": "file not uploaded"});
+    }
+    var timestamp = new Date().valueOf();
+    var filename = 'U' +  String(timestamp) + req.file.originalname;
+    console.log('filename: ', filename);
+    fs.writeFile("./public/images/" + filename, req.file.buffer, function (err) {
+        console.log('fs writeFile /photos/new');
+
+        if (err) {
+            console.log("error: writeFile /photos/new");
             return res.status(500).json({"error": err});
         }
-        var timestamp = new Date().valueOf();
-        var filename = 'U' +  String(timestamp) + req.file.originalname;
-        fs.writeFile("./public/images/" + filename, req.file.buffer, function (err) {
-            console.log('fs writeFile /photos/new');
 
-            if (err) {
-                console.log("error: writeFile /photos/new");
+        Photo.create({
+            file_name: filename,
+            date_time: timestamp,
+            user_id: req.session.user._id,
+            description: description || ''
+        }, function(err, newPhoto) {
+            console.log('Photo.create: ', newPhoto);
+            if(err) {
+                console.log('error: /photos/new Photo.create');
                 return res.status(500).json({"error": err});
             }
-
-            Photo.create({
-                file_name: filename,
-                date_time: timestamp,
-                user_id: req.session.user._id
-            }, function(err, newPhoto) {
-                console.log('Photo.create: ', newPhoto);
-                if(err) {
-                    console.log('error: /photos/new Photo.create');
-                    return res.status(500).json({"error": err});
-                }
-                console.log('succeed: /photos/new create new photo');
-                res.status(200).json({"photo": newPhoto});
-            });
-
+            console.log('succeed: /photos/new create new photo');
+            res.status(200).json(newPhoto);
         });
+
     });
 });
 

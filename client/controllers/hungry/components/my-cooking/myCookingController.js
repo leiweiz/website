@@ -44,10 +44,12 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
 
     }]);
 
-function DialogController($scope, $mdDialog) {
+function DialogController($scope, $mdDialog, $http) {
     $scope.newFood = {
-        name: 'a'
+        description: ''
     };
+
+    var selectedPhotoFile;
 
     $scope.hide = function() {
         $mdDialog.hide();
@@ -58,5 +60,28 @@ function DialogController($scope, $mdDialog) {
     $scope.submit = function() {
         // to do submit
         $mdDialog.hide();
+    };
+
+
+    $scope.submit = function(){
+        if (!$scope.files || $scope.files.length === 0) {
+            console.error("uploadPhoto called will no selected file");
+            return;
+        }
+        // ?? if we do not keep pointer with following line
+        // $scope.files[0].lfFile in formData.append() will throw error
+        selectedPhotoFile = $scope.files[0].lfFile;
+        console.log('fileSubmitted', selectedPhotoFile);
+        var formData = new FormData();
+        formData.append('uploadphoto', selectedPhotoFile);
+        formData.append('description', $scope.newFood.description);
+        $http.post('/photos/new', formData, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        }).then(function(response){
+            // do sometingh
+        },function(err){
+            // do sometingh
+        });
     };
 }

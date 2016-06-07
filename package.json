@@ -24,6 +24,8 @@
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "install": "^0.8.1",
+    "lf-ng-md-file-input": "^1.4.6",
     "mongoose": "^4.4.17",
     "multer": "^1.1.0"
   }
