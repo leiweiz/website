@@ -18,7 +18,8 @@ var photoSchema = new mongoose.Schema({
     user_id: mongoose.Schema.Types.ObjectId, // The user object of the user who created the photo.
     comments: [commentSchema], // Comment objects representing the comments made on this photo.
     description: String,
-    price: String
+    price: String,
+    food_name: String
 });
 
 // the schema is useless so far

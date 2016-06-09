@@ -1,91 +1,57 @@
 <div layout-wrap layout="row" layout-lt-sm="column" layout-align="center">
-    <md-card flex-gt-sm="40">
-        <md-card-header>
-            <md-card-avatar>
-                <img class="md-user-avatar" src="/images/beef.jpg"/>
-            </md-card-avatar>
-            <md-card-header-text>
-                <span class="md-title">User</span>
-                <span class="md-subhead">Address</span>
-            </md-card-header-text>
-        </md-card-header>
-        <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Food name</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-            <p>
-                food description
-            </p>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="start center">
-            <md-card-icon-actions>
-                <md-button class="md-icon-button" aria-label="Edit">
-                    <md-icon md-svg-icon="/icons/edit.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Delete">
-                    <md-icon md-svg-icon="/icons/delete.svg"></md-icon>
-                </md-button>
-            </md-card-icon-actions>
-            <md-button>Action 1</md-button>
-        </md-card-actions>
-    </md-card>
+    <!--<md-card flex-gt-sm="40">-->
+        <!--<md-card-header>-->
+            <!--<md-card-avatar>-->
+                <!--<img class="md-user-avatar" src="/images/beef.jpg"/>-->
+            <!--</md-card-avatar>-->
+            <!--<md-card-header-text>-->
+                <!--<span class="md-title">User</span>-->
+                <!--<span class="md-subhead">Address</span>-->
+            <!--</md-card-header-text>-->
+        <!--</md-card-header>-->
+        <!--<img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">-->
+        <!--<md-card-title>-->
+            <!--<md-card-title-text>-->
+                <!--<span class="md-headline">Food name</span>-->
+            <!--</md-card-title-text>-->
+        <!--</md-card-title>-->
+        <!--<md-card-content>-->
+            <!--<p>-->
+                <!--food description-->
+            <!--</p>-->
+        <!--</md-card-content>-->
+        <!--<md-card-actions layout="row" layout-align="start center">-->
+            <!--<md-card-icon-actions>-->
+                <!--<md-button class="md-icon-button" aria-label="Edit">-->
+                    <!--<md-icon md-svg-icon="/icons/edit.svg"></md-icon>-->
+                <!--</md-button>-->
+                <!--<md-button class="md-icon-button" aria-label="Delete">-->
+                    <!--<md-icon md-svg-icon="/icons/delete.svg"></md-icon>-->
+                <!--</md-button>-->
+            <!--</md-card-icon-actions>-->
+            <!--<md-button>Action 1</md-button>-->
+        <!--</md-card-actions>-->
+    <!--</md-card>-->
 
-    <md-card flex-gt-sm="40">
+    <md-card flex-gt-sm="40" ng-repeat="photo in photos">
         <md-card-header>
             <md-card-avatar>
                 <img class="md-user-avatar" src="/images/beef.jpg"/>
             </md-card-avatar>
             <md-card-header-text>
-                <span class="md-title">User</span>
-                <span class="md-subhead">Address</span>
+                <span class="md-title">{{loginUser.first_name}} {{loginUser.last_name}}</span>
+                <span class="md-subhead">{{loginUser.address.address}}</span>
             </md-card-header-text>
         </md-card-header>
-        <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
+        <img ng-src="/images/{{photo.file_name}}" class="md-card-image" alt="{{photo.file_name}}">
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Food name</span>
+                <span class="md-headline">{{photo.food_name}} -- {{photo.price}}</span>
             </md-card-title-text>
         </md-card-title>
         <md-card-content>
             <p>
-                food description
-            </p>
-        </md-card-content>
-        <md-card-actions layout="row" layout-align="start center">
-            <md-card-icon-actions>
-                <md-button class="md-icon-button" aria-label="Edit">
-                    <md-icon md-svg-icon="/icons/edit.svg"></md-icon>
-                </md-button>
-                <md-button class="md-icon-button" aria-label="Delete">
-                    <md-icon md-svg-icon="/icons/delete.svg"></md-icon>
-                </md-button>
-            </md-card-icon-actions>
-            <md-button>Action 1</md-button>
-        </md-card-actions>
-    </md-card>
-
-    <md-card flex-gt-sm="40">
-        <md-card-header>
-            <md-card-avatar>
-                <img class="md-user-avatar" src="/images/beef.jpg"/>
-            </md-card-avatar>
-            <md-card-header-text>
-                <span class="md-title">User</span>
-                <span class="md-subhead">Address</span>
-            </md-card-header-text>
-        </md-card-header>
-        <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
-        <md-card-title>
-            <md-card-title-text>
-                <span class="md-headline">Food name</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-content>
-            <p>
-                food description
+                {{photo.description}}
             </p>
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">

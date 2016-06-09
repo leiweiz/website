@@ -2,14 +2,15 @@
  * Created by lei on 5/19/16.
  */
 
-app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast', '$rootScope', '$cookies',
-    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast, $rootScope, $cookies) {
+app.controller('MyCookingController',
+    ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast', '$rootScope', '$rootScope', '$resource',
+    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast, $rootScope, $rootScope, $resource) {
         $scope.selectedDirection = 'up';
         $scope.selectedMode = 'md-fling';
         $scope.isOpen = false;
+        $scope.loginUser = $rootScope.loginUser;
 
-        console.log($cookies.get('userId'));
-        //$scope.photosOfUser = getPhotosOfUser($rootScope.loginUser._id);
+        updatePhotosOfUser();
 
         $scope.showAddFood = function(ev) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -24,6 +25,8 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
                 .then(function(msg) {
                     $scope.status = 'succeed';
                     $scope.showSimpleToast('added new food');
+                    // TODO, use jQuery to add new photo
+                    updatePhotosOfUser();
                 }, function(msg) {
                     $scope.status = 'You cancelled the dialog.';
                     $scope.showSimpleToast('cancelled');
@@ -45,8 +48,12 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
             );
         };
 
-        function getPhotosOfUser(userId) {
-            console.log(userId);
+        function updatePhotosOfUser() {
+            var Photo = $resource('/photosOfUser/:userId', {userId:'@id'}, {query: {method: 'get', isArray: true}});
+            Photo.query({userId: $scope.loginUser._id}, function(photos) {
+                $scope.photos = photos;
+                console.log("photos of User", photos);
+            });
         }
 
     }]);
@@ -54,7 +61,8 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
 function DialogController($scope, $mdDialog, $http) {
     $scope.newFood = {
         description: '',
-        price: ''
+        price: '',
+        name: ''
     };
 
     var selectedPhotoFile;
@@ -84,6 +92,8 @@ function DialogController($scope, $mdDialog, $http) {
         formData.append('uploadphoto', selectedPhotoFile);
         formData.append('description', $scope.newFood.description);
         formData.append('price', $scope.newFood.price);
+        formData.append('food_name', $scope.newFood.name);
+
         $http.post('/photos/new', formData, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}

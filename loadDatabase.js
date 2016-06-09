@@ -38,6 +38,7 @@ Promise.all(removePromises).then(function() {
             user_id: newUser._id,
             description: "This is my dish",
             price: '$10',
+            food_name: 'myfood name',
             comments: [
                 {
                     content: "good review",

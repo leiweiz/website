@@ -68,6 +68,29 @@ app.get('/sample-simulation', function(req, res) {
 //// demo-clone app
 //demoCloneController(app);
 
+// user
+app.get('/user/:id', function (req, res) {
+    console.log('get: /user/:id')
+    var id = req.params.id;
+    var query = User.findOne({_id: id});
+    query.select("_id first_name last_name address telephone")
+        .exec(function(err, user) {
+            console.log('query User.findOne');
+            if (err) {
+                console.log('error: query User.findOne internal error');
+                return res.status(500).json({"error": err});
+            }
+
+            if (!user) {
+                console.log("error: user not found");
+                return res.status(401).json({"error": "user not found"});
+            }
+
+            console.log("succeed: find user", user);
+            return res.status(200).json(user);
+        });
+});
+
 // get all photos
 app.get('/photos/list', function(req, res) {
     console.log('get /photos/list');
@@ -84,10 +107,10 @@ app.get('/photos/list', function(req, res) {
 });
 
 // get photo of user
-app.post('/photosOfUser/:user_id', function(req, res) {
-    console.log('post /photosOfUser/:user_id');
+app.get('/photosOfUser/:id', function(req, res) {
+    console.log('post /photosOfUser/:id');
 
-    var id = req.params.user_id;
+    var id = req.params.id;
     Photo.find({user_id: id}, function(err, photos) {
         if (err) {
             console.log('error: post /photosOfUser/:user_id Photo.find({_id})');
@@ -95,7 +118,7 @@ app.post('/photosOfUser/:user_id', function(req, res) {
         }
 
         console.log('succeed: post /photosOfUser/:user_id Photo.find({_id})');
-        res.status(200).json(photos);
+        return res.status(200).json(photos);
     });
 });
 
@@ -104,6 +127,7 @@ app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
     console.log('post /photos/new');
     var description = req.body.description;
     var price = req.body.price;
+    var foodName = req.body.food_name;
     console.log('description: ', description);
     console.log('req.file: ', req.file);
 
@@ -127,7 +151,8 @@ app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
             date_time: timestamp,
             user_id: req.session.user._id,
             description: description || 'no description',
-            price: price || '$0'
+            price: price || '$0',
+            food_name: foodName || 'no food name',
         }, function(err, newPhoto) {
             console.log('Photo.create: ', newPhoto);
             if(err) {

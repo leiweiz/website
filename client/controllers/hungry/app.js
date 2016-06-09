@@ -2,7 +2,7 @@
  * Created by lei on 5/19/16.
  */
 
-var app = angular.module('MyApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'lfNgMdFileInput', 'ngCookies'])
+var app = angular.module('MyApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'lfNgMdFileInput', 'ngCookies', 'ngResource'])
     .run(function() {
         console.log('MyApp is ready!');
     });
@@ -55,9 +55,19 @@ app.service('MenuOptionService', function() {
     ];
 });
 
-app.controller('HungryController', ['MenuOptionService', '$mdSidenav', '$location',
-    function(MenuOptionService, $mdSidenav, $location) {
+app.controller('HungryController',
+    ['MenuOptionService', '$mdSidenav', '$location', '$rootScope', '$cookies', '$resource',
+    function(MenuOptionService, $mdSidenav, $location, $rootScope, $cookies, $resource) {
         var self = this;
+
+        (function() {
+            var userId = $cookies.get('userId');
+            var User = $resource('/user/:userId', {userId:'@id'});
+            User.get({userId:userId}, function(user) {
+                $rootScope.loginUser = user;
+                console.log("login user", user);
+            });
+        })();
 
         self.options = MenuOptionService.options;
         self.selectedOption = self.options[0]; // check not null
