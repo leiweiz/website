@@ -33,6 +33,7 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use('/views', express.static(__dirname + '/views'));
 app.use('/images', express.static(__dirname + '/public/images'));
 app.use('/icons', express.static(__dirname + '/public/icons'));
+app.use('/avatars', express.static(__dirname + '/public/avatars'));
 
 app.set('view engine', 'ejs');
 
@@ -189,6 +190,7 @@ app.post('/user', function(req, res) {
 
         req.body.password_digest = saltedPassword.hash;
         req.body.salt = saltedPassword.salt;
+        req.body.avatar = 'default.png';
 
         User.create(req.body, function(err, newUser) {
             console.log('/user User.create');

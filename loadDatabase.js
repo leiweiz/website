@@ -39,6 +39,7 @@ Promise.all(removePromises).then(function() {
             description: "This is my dish",
             price: '$10',
             food_name: 'myfood name',
+            avatar: 'default.png',
             comments: [
                 {
                     content: "good review",

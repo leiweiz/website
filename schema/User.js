@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
     password_digest: String,
     salt: String,
     address: addressSchema,
-    telephone: String
+    telephone: String,
+    avatar: String
 });
 
 // the schema is useless so far
