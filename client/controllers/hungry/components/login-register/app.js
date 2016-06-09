@@ -2,13 +2,13 @@
  * Created by lei on 6/5/16.
  */
 
-var app = angular.module('LoginRegisterApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'ngResource'])
+var app = angular.module('LoginRegisterApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'ngResource', 'ngCookies'])
     .run(function() {
         console.log('LoginRegisterApp is ready!');
     });
 
-app.controller('LoginRegisterController',['$scope', '$resource', '$mdMedia', '$mdDialog', '$mdToast', '$window',
-    function ($scope, $resource, $mdMedia, $mdDialog, $mdToast, $window) {
+app.controller('LoginRegisterController',['$scope', '$resource', '$mdMedia', '$mdDialog', '$mdToast', '$window', '$cookies',
+    function ($scope, $resource, $mdMedia, $mdDialog, $mdToast, $window, $cookies) {
         $scope.message = 'hello';
 
         $scope.selectedDirection = 'up';
@@ -26,11 +26,13 @@ app.controller('LoginRegisterController',['$scope', '$resource', '$mdMedia', '$m
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
             })
-                .then(function(msg) {
+                .then(function(user) {
+                    $cookies.put('userId', user._id);
                     $scope.status = 'succeed';
                     $scope.showSimpleToast('login succeed');
 
-                    if (msg.succeed) {
+                    if (user._id) {
+                        console.log("login: ", user);
                         $window.location.href = '/hungry'; // redirect to foods pag
                     }
                 }, function(msg) {
@@ -54,11 +56,13 @@ app.controller('LoginRegisterController',['$scope', '$resource', '$mdMedia', '$m
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
             })
-                .then(function(msg) {
+                .then(function(user) {
+                    $cookies.put('userId', user._id);
                     $scope.status = 'succeed';
                     $scope.showSimpleToast('register succeed');
 
-                    if (msg.succeed) {
+                    if (user._id) {
+                        console.log("register: ", user);
                         $window.location.href = '/hungry'; // redirect to foods pag
                     }
                 }, function(msg) {

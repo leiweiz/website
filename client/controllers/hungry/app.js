@@ -2,7 +2,7 @@
  * Created by lei on 5/19/16.
  */
 
-var app = angular.module('MyApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'lfNgMdFileInput'])
+var app = angular.module('MyApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'lfNgMdFileInput', 'ngCookies'])
     .run(function() {
         console.log('MyApp is ready!');
     });

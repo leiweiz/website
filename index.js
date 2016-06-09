@@ -88,7 +88,7 @@ app.post('/photosOfUser/:user_id', function(req, res) {
     console.log('post /photosOfUser/:user_id');
 
     var id = req.params.user_id;
-    Photo.find({_id: id}, function(err, photos) {
+    Photo.find({user_id: id}, function(err, photos) {
         if (err) {
             console.log('error: post /photosOfUser/:user_id Photo.find({_id})');
             return res.status(500).json({"error": err});
@@ -103,6 +103,7 @@ app.post('/photosOfUser/:user_id', function(req, res) {
 app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
     console.log('post /photos/new');
     var description = req.body.description;
+    var price = req.body.price;
     console.log('description: ', description);
     console.log('req.file: ', req.file);
 
@@ -125,7 +126,8 @@ app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
             file_name: filename,
             date_time: timestamp,
             user_id: req.session.user._id,
-            description: description || ''
+            description: description || 'no description',
+            price: price || '$0'
         }, function(err, newPhoto) {
             console.log('Photo.create: ', newPhoto);
             if(err) {
@@ -167,12 +169,11 @@ app.post('/user', function(req, res) {
             console.log('/user User.create');
             if (err) {
                 console.log("error: /user User.create");
-                res.status(500).json({"error": err});
-                return;
+                return res.status(500).json({"error": err});
             }
             console.log('succeed: /user User.create');
             req.session.user = newUser;
-            return res.status(200).json({"succeed": "login succeed"});
+            return res.status(200).json(newUser);
         });
     });
 });
@@ -198,7 +199,7 @@ app.post('/admin/login', function(req, res){
         if (saltPassword.doesPasswordMatch(user.password_digest, user.salt, req.body.password)) {
             console.log('succeed: /admin/login');
             req.session.user = user;
-            return res.status(200).json({"succeed": "login succeed"});
+            return res.status(200).json(user);
         } else {
             console.log('error: /admin/login');
             return res.status(401).json({"error": "password is wrong"});

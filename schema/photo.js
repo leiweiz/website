@@ -17,7 +17,8 @@ var photoSchema = new mongoose.Schema({
     date_time: {type: Date, default: Date.now}, // 	The date and time when the photo was added to the database
     user_id: mongoose.Schema.Types.ObjectId, // The user object of the user who created the photo.
     comments: [commentSchema], // Comment objects representing the comments made on this photo.
-    description: String
+    description: String,
+    price: String
 });
 
 // the schema is useless so far

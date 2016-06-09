@@ -17,7 +17,8 @@ Promise.all(removePromises).then(function() {
         first_name: "leiwei",
         last_name: "zheng",
         login_name: "leiweiz",
-        password: "123",
+        password_digest: "c6bd0bf2337601f54464b67ae774a0cde85f7bfa",
+        "salt": "16fd68f11d42cfe5",
         address: {
             address: "55 dinsmore ave apt 503",
             city: "Framingham",
@@ -36,6 +37,7 @@ Promise.all(removePromises).then(function() {
             file_name: "pofu.jpg",
             user_id: newUser._id,
             description: "This is my dish",
+            price: '$10',
             comments: [
                 {
                     content: "good review",

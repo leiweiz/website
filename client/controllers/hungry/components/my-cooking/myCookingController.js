@@ -2,11 +2,14 @@
  * Created by lei on 5/19/16.
  */
 
-app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast',
-    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast) {
+app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast', '$rootScope', '$cookies',
+    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast, $rootScope, $cookies) {
         $scope.selectedDirection = 'up';
         $scope.selectedMode = 'md-fling';
         $scope.isOpen = false;
+
+        console.log($cookies.get('userId'));
+        //$scope.photosOfUser = getPhotosOfUser($rootScope.loginUser._id);
 
         $scope.showAddFood = function(ev) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -18,10 +21,10 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
                 clickOutsideToClose:true,
                 fullscreen: useFullScreen
             })
-                .then(function() {
+                .then(function(msg) {
                     $scope.status = 'succeed';
                     $scope.showSimpleToast('added new food');
-                }, function() {
+                }, function(msg) {
                     $scope.status = 'You cancelled the dialog.';
                     $scope.showSimpleToast('cancelled');
                 });
@@ -42,11 +45,16 @@ app.controller('MyCookingController', ['$scope', '$routeParams', '$mdMedia', '$m
             );
         };
 
+        function getPhotosOfUser(userId) {
+            console.log(userId);
+        }
+
     }]);
 
 function DialogController($scope, $mdDialog, $http) {
     $scope.newFood = {
-        description: ''
+        description: '',
+        price: ''
     };
 
     var selectedPhotoFile;
@@ -75,13 +83,16 @@ function DialogController($scope, $mdDialog, $http) {
         var formData = new FormData();
         formData.append('uploadphoto', selectedPhotoFile);
         formData.append('description', $scope.newFood.description);
+        formData.append('price', $scope.newFood.price);
         $http.post('/photos/new', formData, {
             transformRequest: angular.identity,
             headers: {'Content-Type': undefined}
         }).then(function(response){
             // do sometingh
+            $mdDialog.hide(response);
         },function(err){
             // do sometingh
+            $mdDialog.cancel();
         });
     };
 }
