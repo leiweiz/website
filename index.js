@@ -71,7 +71,7 @@ app.get('/sample-simulation', function(req, res) {
 
 // user
 app.get('/user/:id', function (req, res) {
-    console.log('get: /user/:id')
+    console.log('get: /user/:id');
     var id = req.params.id;
     var query = User.findOne({_id: id});
     query.select("_id first_name last_name address telephone")
@@ -210,7 +210,7 @@ app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
             user_id: req.session.user._id,
             description: description || 'no description',
             price: price || '$0',
-            food_name: foodName || 'no food name',
+            food_name: foodName || 'no food name'
         }, function(err, newPhoto) {
             console.log('Photo.create: ', newPhoto);
             if(err) {

@@ -3,8 +3,8 @@
  */
 
 app.controller('MyCookingController',
-    ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast', '$rootScope', '$rootScope', '$resource',
-    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast, $rootScope, $rootScope, $resource) {
+    ['$scope', '$routeParams', '$mdMedia', '$mdDialog', '$mdToast', '$rootScope', '$resource',
+    function ($scope, $routeParams, $mdMedia, $mdDialog, $mdToast, $rootScope, $resource) {
         $scope.selectedDirection = 'up';
         $scope.selectedMode = 'md-fling';
         $scope.isOpen = false;
@@ -152,7 +152,9 @@ function AddDialogController($scope, $mdDialog, $http) {
     };
 }
 
-function EditDialogController($scope, $mdDialog, $http, photoId, $resource) {
+// pass data to dialog
+// https://github.com/angular/material/issues/1016
+function EditDialogController($scope, $mdDialog, photoId, $resource) {
     $scope.editFood = {
         description: '',
         price: '',
