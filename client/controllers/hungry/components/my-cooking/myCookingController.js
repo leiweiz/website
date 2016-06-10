@@ -9,13 +9,14 @@ app.controller('MyCookingController',
         $scope.selectedMode = 'md-fling';
         $scope.isOpen = false;
         $scope.loginUser = $rootScope.loginUser;
+        $scope.deletePhoto = deletePhoto;
 
         updatePhotosOfUser();
 
         $scope.showAddFood = function(ev) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
-                controller: DialogController,
+                controller: AddDialogController,
                 templateUrl: '/client/controllers/hungry/components/my-cooking/addFoodDialogTemplate.ejs',
                 parent: angular.element(document.body),
                 targetEvent: ev,
@@ -25,6 +26,36 @@ app.controller('MyCookingController',
                 .then(function(msg) {
                     $scope.status = 'succeed';
                     $scope.showSimpleToast('added new food');
+                    // TODO, use jQuery to add new photo
+                    updatePhotosOfUser();
+                }, function(msg) {
+                    $scope.status = 'You cancelled the dialog.';
+                    $scope.showSimpleToast('cancelled');
+                });
+            $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+            }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+            });
+        };
+
+
+        $scope.showEditFood = function(ev, photoId) {
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+            $mdDialog.show({
+                controller: EditDialogController,
+                templateUrl: '/client/controllers/hungry/components/my-cooking/editFoodDialogTemplate.ejs',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                fullscreen: useFullScreen,
+                locals : {
+                    photoId : photoId
+                }
+            })
+                .then(function(msg) {
+                    $scope.status = 'succeed';
+                    $scope.showSimpleToast('edited food');
                     // TODO, use jQuery to add new photo
                     updatePhotosOfUser();
                 }, function(msg) {
@@ -56,9 +87,23 @@ app.controller('MyCookingController',
             });
         }
 
+        function deletePhoto(photoId) {
+            var Photo = $resource('/photos/:photoId', {photoId: '@id'}, {delete: {method: 'delete'}});
+            Photo.delete({photoId: photoId}, function(res) {
+                console.log(res);
+                if (res.succeed) {
+                    // TODO, use jQuery
+                    $scope.showSimpleToast('photo deleted');
+                    updatePhotosOfUser();
+                } else {
+                    $scope.showSimpleToast('failed to delete');
+                }
+            });
+        }
+
     }]);
 
-function DialogController($scope, $mdDialog, $http) {
+function AddDialogController($scope, $mdDialog, $http) {
     $scope.newFood = {
         description: '',
         price: '',
@@ -104,5 +149,41 @@ function DialogController($scope, $mdDialog, $http) {
             // do sometingh
             $mdDialog.cancel();
         });
+    };
+}
+
+function EditDialogController($scope, $mdDialog, $http, photoId, $resource) {
+    $scope.editFood = {
+        description: '',
+        price: '',
+        name: ''
+    };
+    $scope.photoId = photoId;
+
+    $scope.hide = function() {
+        $mdDialog.hide();
+    };
+    $scope.cancel = function() {
+        $mdDialog.cancel();
+    };
+    $scope.submit = function() {
+        // to do submit
+        $mdDialog.hide();
+    };
+
+
+    $scope.submit = function(){
+        var Photo = $resource('/photos/:photoId', {photoId: '@id'}, {update: {method: 'put'}});
+        console.log($scope.photoId);
+        Photo.update({ photoId: $scope.photoId }, $scope.editFood,
+            function(res) {
+                console.log(res);
+                if (res.succeed) {
+                    // TODO, use jQuery
+                    $mdDialog.hide(res);
+                } else {
+                    $mdDialog.cancel('edit fails');
+                }
+            });
     };
 }

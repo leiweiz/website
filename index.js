@@ -123,6 +123,63 @@ app.get('/photosOfUser/:id', function(req, res) {
     });
 });
 
+// delete photo
+app.delete('/photos/:id', function(req, res) {
+    console.log('delete /photo/:id');
+    var photoId = req.params.id;
+    Photo.findOne({_id: photoId}, function(err, photo) {
+        console.log('Photo.findOne /photos/:id');
+        if (err) {
+            console.log("error: Photo.findOne");
+            return res.status(500).json({"error": "internal error"});
+        }
+
+        if (!photo) {
+            console.log('error: no photo found');
+            return res.status(400).json({"error": "no photo found"});
+        }
+
+        console.log(photo);
+        photo.remove();
+        return res.status(200).json({"succeed": "good"});
+    });
+});
+
+// update photo
+app.put('/photos/:id', function(req, res) {
+    console.log('put /photos/:id');
+    var id = req.params.id;
+    var description = req.body.description;
+    var price = req.body.price;
+    var name = req.body.name;
+
+    Photo.findOne({_id: id}, function(err, photo) {
+        console.log('put /photos/:id');
+        if (err) {
+            console.log("error: put /photos/:id");
+            return res.status(500).json({"error": "internal error"});
+        }
+
+        if (!photo) {
+            console.log("error: photo not found");
+            return res.status(400).json({"error": "photo not found"});
+        }
+        console.log("succeed: ", photo);
+        photo.description = description;
+        photo.price = price;
+        photo.food_name = name;
+        photo.save(function(err) {
+            console.log('photo.save');
+            if (err) {
+                console.log("error: photo.save err");
+                return res.status(500).json({"error": "internal error"});
+            }
+            console.log("succeed: photo.save");
+            return res.status(200).json({"succeed": "good"});
+        });
+    });
+});
+
 // create new photo
 app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
     console.log('post /photos/new');

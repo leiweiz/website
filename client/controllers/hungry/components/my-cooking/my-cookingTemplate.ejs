@@ -56,10 +56,10 @@
         </md-card-content>
         <md-card-actions layout="row" layout-align="start center">
             <md-card-icon-actions>
-                <md-button class="md-icon-button" aria-label="Edit">
+                <md-button class="md-icon-button" aria-label="Edit" ng-click="showEditFood($event, photo._id)">
                     <md-icon md-svg-icon="/icons/edit.svg"></md-icon>
                 </md-button>
-                <md-button class="md-icon-button" aria-label="Delete">
+                <md-button class="md-icon-button" aria-label="Delete" ng-click="deletePhoto(photo._id)">
                     <md-icon md-svg-icon="/icons/delete.svg"></md-icon>
                 </md-button>
             </md-card-icon-actions>
