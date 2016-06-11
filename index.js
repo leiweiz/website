@@ -95,15 +95,49 @@ app.get('/user/:id', function (req, res) {
 // get all photos
 app.get('/photos/list', function(req, res) {
     console.log('get /photos/list');
+
     Photo.find({}, function(err, photos) {
+        console.log('Photo.find({})');
         if (err) {
             console.log('error: get /photos/list photo find{}');
-            res.status(500).json({"error": err});
-            return;
+            return res.status(500).json({"error": err});
         }
 
-        console.log('succeed: get /photos/list photo find{}');
-        res.status(200).json(photos);
+        photos = JSON.parse(JSON.stringify(photos));
+
+        async.each(photos, function(photo, callback){
+            console.log("async.each(photos)");
+            User.findOne({_id: photo.user_id}, function(err, user) {
+                console.log("User.findOne");
+                if (err) {
+                    console.log("error: User.findOne()");
+                    return callback(err);
+                }
+
+                if (!user) {
+                    console.log("error: user not found");
+                    return callback({"error": "user not found"});
+                }
+
+                photo.user = {
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    address: user.address,
+                    telephone: user.telephone,
+                    avatar: user.avatar
+                };
+                callback();
+            })
+        }, function(err){
+            console.log("async.each final callback");
+            if (err) {
+                console.log("error: async.each final callback");
+                return res.status(500).json(err);
+            }
+            console.log('succeed: get /photos/list photo find{}');
+            return res.status(200).json(photos);
+        });
+
     });
 });
 
