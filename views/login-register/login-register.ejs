@@ -17,25 +17,25 @@
 <md-content id="content" flex>
 
     <div layout-wrap layout="row" layout-lt-sm="column" layout-align="center">
-        <md-card flex-gt-sm="30">
+        <md-card flex-gt-sm="30" ng-repeat="photo in photos">
             <md-card-header>
                 <md-card-avatar>
-                    <img class="md-user-avatar" src="/images/beef.jpg"/>
+                    <img class="md-user-avatar" ng-src="/avatars/{{photo.user.avatar}}"/>
                 </md-card-avatar>
                 <md-card-header-text>
-                    <span class="md-title">User</span>
-                    <span class="md-subhead">Address</span>
+                    <span class="md-title">{{photo.user.first_name}} {{photo.user.last_name}}</span>
+                    <span class="md-subhead">{{photo.user.address.address}}</span>
                 </md-card-header-text>
             </md-card-header>
-            <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
+            <img ng-src="/images/{{photo.file_name}}" class="md-card-image" alt="{{photo.file_name}}">
             <md-card-title>
                 <md-card-title-text>
-                    <span class="md-headline">Food name</span>
+                    <span class="md-headline">{{photo.food_name}}</span>
                 </md-card-title-text>
             </md-card-title>
             <md-card-content>
                 <p>
-                    food description
+                    {{photo.description}}
                 </p>
             </md-card-content>
             <md-card-actions layout="row" layout-align="start center">
@@ -51,107 +51,39 @@
             </md-card-actions>
         </md-card>
 
-        <md-card flex-gt-sm="30">
-            <md-card-header>
-                <md-card-avatar>
-                    <img class="md-user-avatar" src="/images/beef.jpg"/>
-                </md-card-avatar>
-                <md-card-header-text>
-                    <span class="md-title">User</span>
-                    <span class="md-subhead">Address</span>
-                </md-card-header-text>
-            </md-card-header>
-            <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Food name</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <p>
-                    food description
-                </p>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="start center">
-                <md-card-icon-actions>
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon md-svg-icon="/icons/favorite.svg"></md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" aria-label="Share">
-                        <md-icon md-svg-icon="/icons/share.svg"></md-icon>
-                    </md-button>
-                </md-card-icon-actions>
-                <md-button>Action 1</md-button>
-            </md-card-actions>
-        </md-card>
-
-        <md-card flex-gt-sm="30">
-            <md-card-header>
-                <md-card-avatar>
-                    <img class="md-user-avatar" src="/images/beef.jpg"/>
-                </md-card-avatar>
-                <md-card-header-text>
-                    <span class="md-title">User</span>
-                    <span class="md-subhead">Address</span>
-                </md-card-header-text>
-            </md-card-header>
-            <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Food name</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <p>
-                    food description
-                </p>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="start center">
-                <md-card-icon-actions>
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon md-svg-icon="/icons/favorite.svg"></md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" aria-label="Share">
-                        <md-icon md-svg-icon="/icons/share.svg"></md-icon>
-                    </md-button>
-                </md-card-icon-actions>
-                <md-button>Action 1</md-button>
-            </md-card-actions>
-        </md-card>
-
-        <md-card flex-gt-sm="30">
-            <md-card-header>
-                <md-card-avatar>
-                    <img class="md-user-avatar" src="/images/beef.jpg"/>
-                </md-card-avatar>
-                <md-card-header-text>
-                    <span class="md-title">User</span>
-                    <span class="md-subhead">Address</span>
-                </md-card-header-text>
-            </md-card-header>
-            <img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-headline">Food name</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <p>
-                    food description
-                </p>
-            </md-card-content>
-            <md-card-actions layout="row" layout-align="start center">
-                <md-card-icon-actions>
-                    <md-button class="md-icon-button" aria-label="Favorite">
-                        <md-icon md-svg-icon="/icons/favorite.svg"></md-icon>
-                    </md-button>
-                    <md-button class="md-icon-button" aria-label="Share">
-                        <md-icon md-svg-icon="/icons/share.svg"></md-icon>
-                    </md-button>
-                </md-card-icon-actions>
-                <md-button>Action 1</md-button>
-            </md-card-actions>
-        </md-card>
+        <!--<md-card flex-gt-sm="30">-->
+            <!--<md-card-header>-->
+                <!--<md-card-avatar>-->
+                    <!--<img class="md-user-avatar" src="/images/beef.jpg"/>-->
+                <!--</md-card-avatar>-->
+                <!--<md-card-header-text>-->
+                    <!--<span class="md-title">User</span>-->
+                    <!--<span class="md-subhead">Address</span>-->
+                <!--</md-card-header-text>-->
+            <!--</md-card-header>-->
+            <!--<img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">-->
+            <!--<md-card-title>-->
+                <!--<md-card-title-text>-->
+                    <!--<span class="md-headline">Food name</span>-->
+                <!--</md-card-title-text>-->
+            <!--</md-card-title>-->
+            <!--<md-card-content>-->
+                <!--<p>-->
+                    <!--food description-->
+                <!--</p>-->
+            <!--</md-card-content>-->
+            <!--<md-card-actions layout="row" layout-align="start center">-->
+                <!--<md-card-icon-actions>-->
+                    <!--<md-button class="md-icon-button" aria-label="Favorite">-->
+                        <!--<md-icon md-svg-icon="/icons/favorite.svg"></md-icon>-->
+                    <!--</md-button>-->
+                    <!--<md-button class="md-icon-button" aria-label="Share">-->
+                        <!--<md-icon md-svg-icon="/icons/share.svg"></md-icon>-->
+                    <!--</md-button>-->
+                <!--</md-card-icon-actions>-->
+                <!--<md-button>Action 1</md-button>-->
+            <!--</md-card-actions>-->
+        <!--</md-card>-->
     </div>
 
     <div id="my-login-register-menu" ng-cloak class="lock-size" layout="row">
@@ -182,9 +114,19 @@
 <script src="/modules/angular-resource/angular-resource.js" type="text/javascript" ></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script>
 <script src="/modules/angular-cookies/angular-cookies.js"></script>
+<script src="/modules/jquery/dist/jquery.js"></script>
+
 
 
 <script src="/client/controllers/hungry/components/login-register/app.js"></script>
 
+
+<script>
+
+    //TODO: control images size
+    (function() {
+        $('md-card>img').css('height', '260px');
+    })();
+</script>
 </body>
 </html>

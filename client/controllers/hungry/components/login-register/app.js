@@ -7,14 +7,25 @@ var app = angular.module('LoginRegisterApp', ['ngRoute', 'ngMaterial', 'ngMdIcon
         console.log('LoginRegisterApp is ready!');
     });
 
-app.controller('LoginRegisterController',['$scope', '$resource', '$mdMedia', '$mdDialog', '$mdToast', '$window', '$cookies',
-    function ($scope, $resource, $mdMedia, $mdDialog, $mdToast, $window, $cookies) {
+app.controller('LoginRegisterController',
+    ['$scope', '$resource', '$mdMedia', '$mdDialog', '$mdToast', '$window', '$cookies', '$http',
+    function ($scope, $resource, $mdMedia, $mdDialog, $mdToast, $window, $cookies, $http) {
         $scope.message = 'hello';
 
         $scope.selectedDirection = 'up';
         $scope.selectedMode = 'md-fling';
         $scope.isOpen = false;
 
+        updatePhotos();
+
+        function updatePhotos() {
+            $http.get('/photos/list').then(function(res) {
+                if (res.status === 200){
+                    return $scope.photos = res.data;
+                }
+                console.log('fails', res.status);
+            });
+        }
 
         $scope.showLogin = function(ev) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
