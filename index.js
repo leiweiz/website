@@ -74,7 +74,7 @@ app.get('/user/:id', function (req, res) {
     console.log('get: /user/:id');
     var id = req.params.id;
     var query = User.findOne({_id: id});
-    query.select("_id first_name last_name address telephone")
+    query.select("_id first_name last_name address telephone avatar")
         .exec(function(err, user) {
             console.log('query User.findOne');
             if (err) {
