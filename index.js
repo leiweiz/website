@@ -344,4 +344,44 @@ app.post('/admin/logout', function(req, res) {
     }
 });
 
+// change password
+app.post('/password/:id', function(req, res) {
+    console.log('post /password/:id');
+    var userId = req.params.id;
+    var oldPassword = req.body.old_password;
+    var newPassword = req.body.new_password;
+
+    User.findOne({_id: userId}, function(err, user){
+        console.log('User.findeOne()');
+        if (err) {
+            console.log('error: User.findOne()');
+            return res.status(500).json({"error": "internal error"});
+        }
+
+        if (!user) {
+            console.log('error: user not found');
+            return res.status(400).json({"error": "user not found"});
+        }
+
+        console.log("succeed: user found");
+        if (saltPassword.doesPasswordMatch(user.password_digest, user.salt, oldPassword)) {
+            console.log('old password is correct');
+            var saltedPassword = saltPassword.makePasswordEntry(newPassword);
+            user.password_digest = saltedPassword.hash;
+            user.salt = saltedPassword.salt;
+            user.save(function(err) {
+                console.log('user.save new password');
+                if (err) {
+                    console.log('error: user.save');
+                    return res.status(500).json({"error": "internal error"});
+                }
+                return res.status(200).json({"succeed": "successfully changed"});
+            });
+        } else {
+            console.log('old password is not correct');
+            return res.status(400).json({"error": "old password is not correct"})
+        }
+    });
+});
+
 app.listen(port);
