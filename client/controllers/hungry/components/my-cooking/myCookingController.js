@@ -118,11 +118,6 @@ function AddDialogController($scope, $mdDialog, $http) {
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
-    $scope.submit = function() {
-        // to do submit
-        $mdDialog.hide();
-    };
-
 
     $scope.submit = function(){
         if (!$scope.files || $scope.files.length === 0) {
@@ -168,11 +163,6 @@ function EditDialogController($scope, $mdDialog, photoId, $resource) {
     $scope.cancel = function() {
         $mdDialog.cancel();
     };
-    $scope.submit = function() {
-        // to do submit
-        $mdDialog.hide();
-    };
-
 
     $scope.submit = function(){
         var Photo = $resource('/photos/:photoId', {photoId: '@id'}, {update: {method: 'put'}});
