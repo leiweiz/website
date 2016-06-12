@@ -326,4 +326,22 @@ app.post('/admin/login', function(req, res){
     });
 });
 
+// logout
+app.post('/admin/logout', function(req, res) {
+    console.log('post /admin/logout');
+    if (req.session.user) {
+        console.log('exits req.session.user');
+        req.session.destroy(function(err) {
+            if (err) {
+                console.log('error: /admin/logout');
+                return res.status(500).json({"error": "internal error"});
+            }
+            console.log("succeed: /admin/logout");
+            return res.status(200).json({"succeed":'logout succeed'});
+        })
+    } else {
+        return res.status(400).json({"error":'no login user'});
+    }
+});
+
 app.listen(port);
