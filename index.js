@@ -347,6 +347,7 @@ app.post('/admin/logout', function(req, res) {
 // change password
 app.post('/password/:id', function(req, res) {
     console.log('post /password/:id');
+    // TODO: validate new password
     var userId = req.params.id;
     var oldPassword = req.body.old_password;
     var newPassword = req.body.new_password;

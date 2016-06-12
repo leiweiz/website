@@ -82,7 +82,6 @@ function PasswordDialogController($scope, $mdDialog, $resource, $rootScope) {
             function(res) {
                 console.log(res);
                 if (res.succeed) {
-                    // TODO, use jQuery
                     $mdDialog.hide(res);
                 } else {
                     $mdDialog.cancel('edit fails');
@@ -91,7 +90,6 @@ function PasswordDialogController($scope, $mdDialog, $resource, $rootScope) {
     };
 
     function validPassword() {
-        // TODO: validate
         return $scope.password.new_password === $scope.password.confirmed_password;
     }
 }
