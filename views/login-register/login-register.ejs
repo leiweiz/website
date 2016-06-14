@@ -14,13 +14,12 @@
     <h1 class="md-toolbar-item">Hungry</h1>
 </md-toolbar>
 
+<md-content id="content" flex>
 
-<div layout="row" layout-align="center" flex>
+    <div layout="row" layout-align="center start" flex>
 
-<md-content id="content" flex-xs="100" flex-gt-sm="33" flex="50">
-
-    <div layout-wrap layout="column" flex>
-        <md-card flex"50" ng-repeat="photo in photos">
+        <div layout="column" flex-xs="100" flex="50">
+        <md-card flex ng-repeat="photo in photos">
             <md-card-header>
                 <md-card-avatar>
                     <img class="md-user-avatar" ng-src="/avatars/{{photo.user.avatar}}"/>
@@ -38,7 +37,6 @@
                     <span class="md-headline">{{photo.food_name}}</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-divider></md-divider>
             <md-card-content>
                 <p>
                     {{photo.description}}
@@ -57,6 +55,7 @@
                 <md-button>Action 1</md-button>
             </md-card-actions>
         </md-card>
+        </div>
     </div>
 
     <div id="my-login-register-menu" ng-cloak class="lock-size" layout="row">
@@ -77,7 +76,6 @@
         </md-fab-speed-dial>
     </div>
 </md-content>
-</div>
 
 
 <script src="/modules/angular/angular.min.js"></script>

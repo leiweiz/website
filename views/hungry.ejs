@@ -16,7 +16,7 @@
 <body ng-app="MyApp" layout="column" ng-controller="HungryController as hc">
 
 <md-toolbar layout="row" layout-align="center" class="md-medium-tall">
-    <md-button flex class="menu" ng-click="hc.toggleList()" hide-gt-sm aria-label="Menu">
+    <md-button flex="10" class="menu" ng-click="hc.toggleList()" hide-gt-sm aria-label="Menu">
         <md-icon md-svg-src="/public/svg/menu.svg"></md-icon>
     </md-button>
     <h1 class="md-toolbar-item">{{hc.selectedOption.name}}</h1>
