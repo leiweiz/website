@@ -127,7 +127,7 @@ app.get('/photos/list', function(req, res) {
                     avatar: user.avatar
                 };
                 callback();
-            })
+            });
         }, function(err){
             console.log("async.each final callback");
             if (err) {
@@ -256,6 +256,39 @@ app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
         });
 
     });
+});
+
+// add comments
+app.post('/commentsOfPhoto/:photo_id', function(request, response) {
+    console.log("post /commentsOfPhoto/:photo_id");
+    var comment = request.body.comment;
+    var loginUser = request.session.user;
+    var photoId = request.params.photo_id;
+
+
+    if (!loginUser) {
+        return response.status(400).json({"error": "no login user"});
+    }
+
+    if (!comment) {
+        return response.status(400).json({"error": "comment is empty"});
+    }
+
+    Photo.findOneAndUpdate(
+        {_id: photoId},
+        {$push: {"comments": {"content": comment, "user_id": loginUser._id}}},
+        {safe: true, upsert: true},
+        function(err, model) {
+            console.log('Photo.findOneAndUpdate');
+            if (err) {
+                console.log('error: Photo.findOneAndUpdate');
+                return response.status(500).json({"error": "Internal error"});
+            }
+            console.log('succeed: saved comment');
+            // this model is without new comment
+            return response.status(200).json(model);
+        }
+    );
 });
 
 // register
