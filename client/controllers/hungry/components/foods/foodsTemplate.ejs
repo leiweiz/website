@@ -1,39 +1,7 @@
-<div layout-wrap layout="row" layout-lt-sm="column" layout-align="center">
-    <!--<md-card flex-gt-sm="40">-->
-        <!--<md-card-header>-->
-            <!--<md-card-avatar>-->
-                <!--<img class="md-user-avatar" src="/images/beef.jpg"/>-->
-            <!--</md-card-avatar>-->
-            <!--<md-card-header-text>-->
-                <!--<span class="md-title">User</span>-->
-                <!--<span class="md-subhead">Address</span>-->
-            <!--</md-card-header-text>-->
-        <!--</md-card-header>-->
-        <!--<img ng-src="/images/pofu.jpg" class="md-card-image" alt="pofu.jpg">-->
-        <!--<md-card-title>-->
-            <!--<md-card-title-text>-->
-                <!--<span class="md-headline">Food name</span>-->
-            <!--</md-card-title-text>-->
-        <!--</md-card-title>-->
-        <!--<md-card-content>-->
-            <!--<p>-->
-                <!--food description-->
-            <!--</p>-->
-        <!--</md-card-content>-->
-        <!--<md-card-actions layout="row" layout-align="start center">-->
-            <!--<md-card-icon-actions>-->
-                <!--<md-button class="md-icon-button" aria-label="Favorite">-->
-                    <!--<md-icon md-svg-icon="/icons/favorite.svg"></md-icon>-->
-                <!--</md-button>-->
-                <!--<md-button class="md-icon-button" aria-label="Share">-->
-                    <!--<md-icon md-svg-icon="/icons/share.svg"></md-icon>-->
-                <!--</md-button>-->
-            <!--</md-card-icon-actions>-->
-            <!--<md-button>Action 1</md-button>-->
-        <!--</md-card-actions>-->
-    <!--</md-card>-->
+<div layout="row" layout-align="center start">
 
-    <md-card flex-gt-sm="40" ng-repeat="photo in photos">
+    <div layout="column" flex="66">
+    <md-card flex="50" ng-repeat="photo in photos">
         <md-card-header>
             <md-card-avatar>
                 <img class="md-user-avatar" ng-src="/avatars/{{photo.user.avatar}}"/>
@@ -43,7 +11,9 @@
                 <span class="md-subhead">{{photo.user.address.address}}</span>
             </md-card-header-text>
         </md-card-header>
+        <md-divider></md-divider>
         <img ng-src="/images/{{photo.file_name}}" class="md-card-image" alt="{{photo.file_name}}">
+        <md-divider></md-divider>
         <md-card-title>
             <md-card-title-text>
                 <span class="md-headline">{{photo.food_name}}</span>
@@ -54,6 +24,7 @@
                 {{photo.description}}
             </p>
         </md-card-content>
+        <md-divider></md-divider>
         <md-card-actions layout="row" layout-align="start center">
             <md-card-icon-actions>
                 <md-button class="md-icon-button" aria-label="Favorite">
@@ -66,4 +37,5 @@
             <md-button>Action 1</md-button>
         </md-card-actions>
     </md-card>
+    </div>
 </div>
