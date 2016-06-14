@@ -157,6 +157,7 @@ app.get('/photosOfUser/:id', function(req, res) {
     });
 });
 
+
 // delete photo
 app.delete('/photos/:id', function(req, res) {
     console.log('delete /photo/:id');
@@ -255,6 +256,55 @@ app.post('/photos/new', upload.single('uploadphoto'), function(req, res) {
             res.status(200).json(newPhoto);
         });
 
+    });
+});
+
+// get comments of photo
+app.get('/commentsOfPhoto/:id', function(req, res){
+    console.log('get /commentsOfPhoto/:id');
+    var id = req.params.id;
+    Photo.findOne({_id: id}, function(err, photo) {
+        console.log('Photo.findOne');
+        if (err) {
+            console.log("error Photo.findOne");
+            return res.status(500).json({"error": "Internal error"});
+        }
+
+        if (!photo) {
+            console.log("error photo not found");
+            return res.status(500).json({"error": "Photo not found"});
+        }
+
+        var comments = JSON.parse(JSON.stringify(photo.comments));
+        async.each(comments, function(comment, internal_callback) {
+            console.log('async.each(comments)');
+
+            User.findOne({_id: comment.user_id}, function(err, user) {
+                console.log('User.findOne');
+                if(err) {
+                    console.log('error: User.findOne');
+                    internal_callback(err);
+                } else if (!user) {
+                    console.log('error: user not found');
+                    internal_callback({'error': 'user not found'});
+                } else {
+                    user = JSON.parse(JSON.stringify(user)); // to remove password info
+                    delete user.password_digest;
+                    delete user.salt;
+                    comment.user_info = user;
+                    internal_callback(null);
+                }
+            });
+        }, function(err) {
+            console.log('async.each final callback');
+            if (err) {
+                console.log('error async.each final callback');
+                return res.status(500).json({"error": "Internal error"});
+            }
+
+            console.log('succeed: async.each');
+            return res.status(200).json(comments);
+        });
     });
 });
 
