@@ -18,7 +18,7 @@ app.controller('FoodsController',
             });
         }
 
-        $scope.showPhotoDetail = function(ev) {
+        $scope.showPhotoDetail = function(ev, photo) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
             $mdDialog.show({
                 controller: PhotoDetailDialogController,
@@ -26,13 +26,14 @@ app.controller('FoodsController',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 clickOutsideToClose:true,
-                fullscreen: useFullScreen
+                fullscreen: useFullScreen,
+                locals : {
+                    photo: photo
+                }
             })
                 .then(function(msg) {
                     $scope.status = 'succeed';
-                    $scope.showSimpleToast('added new food');
-                    // TODO, use jQuery to add new photo
-                    updatePhotosOfUser();
+                    $scope.showSimpleToast('added new comment');
                 }, function(msg) {
                     $scope.status = 'You cancelled the dialog.';
                     $scope.showSimpleToast('cancelled');
@@ -44,16 +45,22 @@ app.controller('FoodsController',
             });
         };
 
+        $scope.showSimpleToast = function(message) {
+            var pinTo = "top right";
+            $mdToast.show(
+                $mdToast.simple()
+                    .textContent(message)
+                    .position(pinTo )
+                    .hideDelay(2000)
+            );
+        };
+
     }]);
 
-function PhotoDetailDialogController($scope, $mdDialog, $http) {
-    $scope.newFood = {
-        description: '',
-        price: '',
-        name: ''
-    };
-
-    var selectedPhotoFile;
+function PhotoDetailDialogController($scope, $mdDialog, $http, photo) {
+    $scope.photo = photo;
+    $scope.comments = {};
+    updateComments();
 
     $scope.hide = function() {
         $mdDialog.hide();
@@ -63,29 +70,19 @@ function PhotoDetailDialogController($scope, $mdDialog, $http) {
     };
 
     $scope.submit = function(){
-        if (!$scope.files || $scope.files.length === 0) {
-            console.error("uploadPhoto called will no selected file");
-            return;
-        }
-        // ?? if we do not keep pointer with following line
-        // $scope.files[0].lfFile in formData.append() will throw error
-        selectedPhotoFile = $scope.files[0].lfFile;
-        console.log('fileSubmitted', selectedPhotoFile);
-        var formData = new FormData();
-        formData.append('uploadphoto', selectedPhotoFile);
-        formData.append('description', $scope.newFood.description);
-        formData.append('price', $scope.newFood.price);
-        formData.append('food_name', $scope.newFood.name);
 
-        $http.post('/photos/new', formData, {
-            transformRequest: angular.identity,
-            headers: {'Content-Type': undefined}
-        }).then(function(response){
-            // do sometingh
-            $mdDialog.hide(response);
-        },function(err){
-            // do sometingh
-            $mdDialog.cancel();
-        });
     };
+
+    function updateComments(){
+        $http({
+            method: 'GET',
+            url: '/commentsOfPhoto/' + $scope.photo._id
+        }).then(function successCallback(response) {
+            console.log('succeed');
+            $scope.comments = response.data;
+        }, function errorCallback(response) {
+            console.log('error');
+            console.log(response);
+        });
+    }
 }
