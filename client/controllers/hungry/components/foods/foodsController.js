@@ -57,9 +57,12 @@ app.controller('FoodsController',
 
     }]);
 
-function PhotoDetailDialogController($scope, $mdDialog, $http, photo) {
+function PhotoDetailDialogController($scope, $mdDialog, $http, photo, $mdToast) {
     $scope.photo = photo;
     $scope.comments = {};
+    $scope.userComment = '';
+    var url = '/commentsOfPhoto/' + $scope.photo._id;
+
     updateComments();
 
     $scope.hide = function() {
@@ -69,14 +72,24 @@ function PhotoDetailDialogController($scope, $mdDialog, $http, photo) {
         $mdDialog.cancel();
     };
 
-    $scope.submit = function(){
-
+    $scope.commentOnPhoto = function(){
+        $http.post(url, {"comment":$scope.userComment})
+            .then(function successCallback(response) {
+                console.log('succeed');
+                updateComments();
+                $scope.userComment = '';
+                $scope.showSimpleToast('added new comment');
+            }, function errorCallback(response) {
+                console.log('fail');
+                console.log(response);
+                $scope.showSimpleToast('failed');
+            });
     };
 
     function updateComments(){
         $http({
             method: 'GET',
-            url: '/commentsOfPhoto/' + $scope.photo._id
+            url: url
         }).then(function successCallback(response) {
             console.log('succeed');
             $scope.comments = response.data;
@@ -85,4 +98,14 @@ function PhotoDetailDialogController($scope, $mdDialog, $http, photo) {
             console.log(response);
         });
     }
+
+    $scope.showSimpleToast = function(message) {
+        var pinTo = "top right";
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent(message)
+                .position(pinTo )
+                .hideDelay(2000)
+        );
+    };
 }

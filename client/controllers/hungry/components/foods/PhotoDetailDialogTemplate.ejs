@@ -33,10 +33,10 @@
         <md-dialog-actions layout="row">
             <md-input-container class=" md-block" flex>
                 <label>Comment</label>
-                <input type="text">
+                <input type="text" ng-model="userComment">
             </md-input-container>
-            <md-button class="md-raised md-primary">
-                <md-icon md-svg-src="/icons/comment.svg" class="comment"></md-icon>
+            <md-button class="md-raised md-primary" ng-click="commentOnPhoto()">
+                <md-icon md-svg-src="/icons/comment.svg"></md-icon>
             </md-button>
             <md-button md-autofocus class="md-raised md-primary">
                 Order
