@@ -38,7 +38,7 @@ app.use('/avatars', express.static(__dirname + '/public/avatars'));
 app.set('view engine', 'ejs');
 
 app.get('/', function(req, res) {
-    res.render('index');
+    res.redirect('/hungry/login-register');
 });
 
 app.use('/hungry', function(req, res, next) {
