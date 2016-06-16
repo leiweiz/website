@@ -1,54 +1,92 @@
 <md-dialog aria-label="Login" ng-cloak>
-    <form>
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2>Register</h2>
-                <span flex></span>
-                <md-button class="md-icon-button" ng-click="cancel()">
-                    <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
-                </md-button>
-            </div>
-        </md-toolbar>
-        <md-dialog-content>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Register</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <form name="registerForm">
             <div class="md-dialog-content" layout="column">
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>First name</label>
-                        <input ng-model="newRegister.first_name">
+                        <input ng-model="newRegister.first_name" maxlength="15" required name="firstName">
+                        <div ng-messages="registerForm.firstName.$error" role="alert">
+                            <div ng-message-exp="['required', 'maxlength']">
+                                Your first name must be less than 15 characters long.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Last name</label>
-                        <input ng-model="newRegister.last_name">
+                        <input ng-model="newRegister.last_name" maxlength="15" required name="lastName">
+                        <div ng-messages="registerForm.lastName.$error" role="alert">
+                            <div ng-message-exp="['required', 'maxlength']">
+                                Your last name must be less than 15 characters long.
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Login name</label>
-                        <input ng-model="newRegister.login_name">
+                        <input ng-model="newRegister.login_name" minlength="6" maxlength="20" required name="loginName">
+                        <div ng-messages="registerForm.loginName.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Your login must be between 6 and 20 characters long.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Email address</label>
-                        <input ng-model="newRegister.email_address">
+                        <input ng-model="newRegister.email_address" name="emailAddress" required minlength="10" maxlength="30" ng-pattern="/^.+@.+\..+$/">
+                        <div ng-messages="registerForm.emailAddress.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                Your email must be between 10 and 30 characters long and look like an e-mail address.
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Password</label>
-                        <input ng-model="newRegister.password">
+                        <input type="password" ng-model="newRegister.password" minlength="6" maxlength="20" required name="password">
+                        <div ng-messages="registerForm.password.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength']">
+                                Your password must be between 6 and 20 characters long.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Confirm password</label>
-                        <input ng-model="newRegister.confirmed_password">
+                        <input type="password" ng-model="newRegister.confirmed_password">
+                        <!--<div ng-if="newRegister.password !== newRegister.confirmed_password">-->
+                            <!--TODO show information-->
+                        <!--</div>-->
                     </md-input-container>
                 </div>
                 <div layout-gt-sm="row">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Address</label>
-                        <input ng-model="newRegister.address.address">
+                        <input ng-model="newRegister.address.address" name="address" required maxlength="100">
+                        <div ng-messages="registerForm.address.$error" role="alert">
+                            <div ng-message-exp="['required', 'maxlength']">
+                                Your address must be less than 100 characters long.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>City</label>
-                        <input ng-model="newRegister.address.city">
+                        <input ng-model="newRegister.address.city" name="city" required maxlength="100">
+                        <div ng-messages="registerForm.city.$error" role="alert" >
+                            <div ng-message-exp="['required', 'maxlength']">
+                                Your city name must be less than 100 characters long.
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
                 <div layout-gt-sm="row">
@@ -58,19 +96,30 @@
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Zip code</label>
-                        <input ng-model="newRegister.address.zip_code">
+                        <input ng-model="newRegister.address.zip_code" name="zipCode" required ng-pattern="/^\d{5}$/">
+                        <div ng-messages="registerForm.zipCode.$error" role="alert">
+                            <div ng-message-exp="['required', 'pattern']">
+                                Zip code should be 5 digits.
+                            </div>
+                        </div>
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Telephone</label>
-                        <input ng-model="newRegister.telephone">
+                        <input ng-model="newRegister.telephone" name="telephone" required ng-pattern="/^\d{3}-\d{3}-\d{4}$/">
+                        <div ng-messages="registerForm.telephone.$error" role="alert">
+                            <div ng-message-exp="['required', 'pattern']">
+                                telephone should look like xxx-xxx-xxxx.
+                            </div>
+                        </div>
                     </md-input-container>
                 </div>
             </div>
-        </md-dialog-content>
-        <md-dialog-actions layout="row" layout-align="end">
-            <md-button ng-click="register()">
-                Register
-            </md-button>
-        </md-dialog-actions>
-    </form>
+        </form>
+    </md-dialog-content>
+    <md-dialog-actions layout="row" layout-align="end">
+        <md-button ng-click="register()">
+            Register
+        </md-button>
+    </md-dialog-actions>
+
 </md-dialog>

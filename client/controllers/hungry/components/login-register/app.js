@@ -2,7 +2,8 @@
  * Created by lei on 6/5/16.
  */
 
-var app = angular.module('LoginRegisterApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'ngResource', 'ngCookies'])
+var app = angular.module('LoginRegisterApp',
+    ['ngRoute', 'ngMaterial', 'ngMdIcons', 'ngResource', 'ngCookies', 'ngMessages'])
     .run(function() {
         console.log('LoginRegisterApp is ready!');
     });
