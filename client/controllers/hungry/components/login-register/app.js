@@ -10,122 +10,122 @@ var app = angular.module('LoginRegisterApp',
 
 app.controller('LoginRegisterController',
     ['$scope', '$resource', '$mdMedia', '$mdDialog', '$mdToast', '$window', '$cookies', '$http',
-    function ($scope, $resource, $mdMedia, $mdDialog, $mdToast, $window, $cookies, $http) {
-        $scope.message = 'hello';
+        function ($scope, $resource, $mdMedia, $mdDialog, $mdToast, $window, $cookies, $http) {
+            $scope.message = 'hello';
 
-        $scope.selectedDirection = 'up';
-        $scope.selectedMode = 'md-fling';
-        $scope.isOpen = false;
+            $scope.selectedDirection = 'up';
+            $scope.selectedMode = 'md-fling';
+            $scope.isOpen = false;
 
-        updatePhotos();
+            updatePhotos();
 
-        function updatePhotos() {
-            $http.get('/photos/list').then(function(res) {
-                if (res.status === 200){
-                    return $scope.photos = res.data;
-                }
-                console.log('fails', res.status);
-            });
-        }
-
-        $scope.showLogin = function(ev) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-            $mdDialog.show({
-                controller: LoginDialogController,
-                templateUrl: '/client/controllers/hungry/components/login-register/loginDialogTemplate.ejs',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true,
-                fullscreen: useFullScreen
-            })
-                .then(function(user) {
-                    $cookies.put('userId', user._id);
-                    $scope.status = 'succeed';
-                    $scope.showSimpleToast('login succeed');
-
-                    if (user._id) {
-                        console.log("login: ", user);
-                        $window.location.href = '/hungry'; // redirect to foods pag
+            function updatePhotos() {
+                $http.get('/photos/list').then(function(res) {
+                    if (res.status === 200){
+                        return $scope.photos = res.data;
                     }
-                }, function(msg) {
-                    $scope.status = 'You cancelled the dialog.';
-                    $scope.showSimpleToast(msg);
+                    console.log('fails', res.status);
                 });
-            $scope.$watch(function() {
-                return $mdMedia('xs') || $mdMedia('sm');
-            }, function(wantsFullScreen) {
-                $scope.customFullscreen = (wantsFullScreen === true);
-            });
-        };
+            }
 
-        $scope.showRegister = function(ev) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-            $mdDialog.show({
-                controller: RegisterDialogController,
-                templateUrl: '/client/controllers/hungry/components/login-register/registerDialogTemplate.ejs',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true,
-                fullscreen: useFullScreen
-            })
-                .then(function(user) {
-                    $cookies.put('userId', user._id);
-                    $scope.status = 'succeed';
-                    $scope.showSimpleToast('register succeed');
+            $scope.showLogin = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    controller: LoginDialogController,
+                    templateUrl: '/client/controllers/hungry/components/login-register/loginDialogTemplate.ejs',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen: useFullScreen
+                })
+                    .then(function(user) {
+                        $cookies.put('userId', user._id);
+                        $scope.status = 'succeed';
+                        $scope.showSimpleToast('login succeed');
 
-                    if (user._id) {
-                        console.log("register: ", user);
-                        $window.location.href = '/hungry'; // redirect to foods pag
+                        if (user._id) {
+                            console.log("login: ", user);
+                            $window.location.href = '/hungry'; // redirect to foods pag
+                        }
+                    }, function(msg) {
+                        $scope.status = 'You cancelled the dialog.';
+                        $scope.showSimpleToast(msg);
+                    });
+                $scope.$watch(function() {
+                    return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                    $scope.customFullscreen = (wantsFullScreen === true);
+                });
+            };
+
+            $scope.showRegister = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    controller: RegisterDialogController,
+                    templateUrl: '/client/controllers/hungry/components/login-register/registerDialogTemplate.ejs',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen: useFullScreen
+                })
+                    .then(function(user) {
+                        $cookies.put('userId', user._id);
+                        $scope.status = 'succeed';
+                        $scope.showSimpleToast('register succeed');
+
+                        if (user._id) {
+                            console.log("register: ", user);
+                            $window.location.href = '/hungry'; // redirect to foods pag
+                        }
+                    }, function(msg) {
+                        $scope.status = 'You cancelled the registration.';
+                        $scope.showSimpleToast(msg || $scope.status);
+                    });
+                $scope.$watch(function() {
+                    return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                    $scope.customFullscreen = (wantsFullScreen === true);
+                });
+            };
+
+            $scope.showPhotoDetail = function(ev, photo) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    controller: PhotoDetailDialogController,
+                    templateUrl: '/client/controllers/hungry/components/login-register/PhotoDetailDialogTemplate.ejs',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    fullscreen: useFullScreen,
+                    locals : {
+                        photo: photo
                     }
-                }, function(msg) {
-                    $scope.status = 'You cancelled the registration.';
-                    $scope.showSimpleToast(msg || $scope.status);
+                })
+                    .then(function(msg) {
+                        $scope.status = 'succeed';
+                        $scope.showSimpleToast('added new comment');
+                    }, function(msg) {
+                        $scope.status = 'You cancelled the dialog.';
+                        $scope.showSimpleToast('cancelled');
+                    });
+                $scope.$watch(function() {
+                    return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                    $scope.customFullscreen = (wantsFullScreen === true);
                 });
-            $scope.$watch(function() {
-                return $mdMedia('xs') || $mdMedia('sm');
-            }, function(wantsFullScreen) {
-                $scope.customFullscreen = (wantsFullScreen === true);
-            });
-        };
+            };
 
-        $scope.showPhotoDetail = function(ev, photo) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-            $mdDialog.show({
-                controller: PhotoDetailDialogController,
-                templateUrl: '/client/controllers/hungry/components/login-register/PhotoDetailDialogTemplate.ejs',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose:true,
-                fullscreen: useFullScreen,
-                locals : {
-                    photo: photo
-                }
-            })
-                .then(function(msg) {
-                    $scope.status = 'succeed';
-                    $scope.showSimpleToast('added new comment');
-                }, function(msg) {
-                    $scope.status = 'You cancelled the dialog.';
-                    $scope.showSimpleToast('cancelled');
-                });
-            $scope.$watch(function() {
-                return $mdMedia('xs') || $mdMedia('sm');
-            }, function(wantsFullScreen) {
-                $scope.customFullscreen = (wantsFullScreen === true);
-            });
-        };
+            $scope.showSimpleToast = function(message) {
+                var pinTo = "top right";
+                $mdToast.show(
+                    $mdToast.simple()
+                        .textContent(message)
+                        .position(pinTo )
+                        .hideDelay(2000)
+                );
+            };
 
-        $scope.showSimpleToast = function(message) {
-            var pinTo = "top right";
-            $mdToast.show(
-                $mdToast.simple()
-                    .textContent(message)
-                    .position(pinTo )
-                    .hideDelay(2000)
-            );
-        };
-
-    }]);
+        }]);
 
 function LoginDialogController($scope, $mdDialog, $resource) {
     $scope.loginUser = {
@@ -190,40 +190,42 @@ function RegisterDialogController($scope, $mdDialog, $resource) {
             $mdDialog.hide(res);
         }, function() {
             console.log('fail');
-            $mdDialog.cancel('register fail');
+            $mdDialog.cancel("login name exists");
         });
     };
     $scope.validate = function() {
         console.log($scope.newRegister);
         if (!$scope.newRegister.first_name ||
             $scope.newRegister.first_name === '' ||
-            $scope.newRegister.first_name.length < 15) {
-                $scope.error = "first name is not valid";
-                return false;
+            $scope.newRegister.first_name.length > 15) {
+            $scope.error = "first name is not valid";
+            return false;
         }
         if (!$scope.newRegister.last_name ||
             $scope.newRegister.last_name === '' ||
-            $scope.newRegister.last_name.length < 15) {
-                $scope.error = "last name is not valid";
-                return false;
+            $scope.newRegister.last_name.length > 15) {
+            $scope.error = "last name is not valid";
+            return false;
         }
         if (!$scope.newRegister.login_name ||
             $scope.newRegister.login_name === '' ||
-            $scope.newRegister.login_name < 6 ||
-            $scope.newRegister.login_name > 20) {
-                $scope.error = "login name is not valid";
-                return false;
+            $scope.newRegister.login_name.length < 6 ||
+            $scope.newRegister.login_name.length > 20) {
+            $scope.error = "login name is not valid";
+            return false;
         }
         if (!$scope.newRegister.email_address ||
             $scope.newRegister.email_address === '' ||
+            $scope.newRegister.email_address.length < 5 ||
+            $scope.newRegister.email_address.length > 30 ||
             !$scope.newRegister.email_address.match(/^.+@.+\..+$/)) {
-                $scope.error = "email address is not valid";
-                return false;
-            }
+            $scope.error = "email address is not valid";
+            return false;
+        }
         if (!$scope.newRegister.password ||
             $scope.newRegister.password === '' ||
-            $scope.newRegister.password < 6 ||
-            $scope.newRegister.password > 20) {
+            $scope.newRegister.password.length < 6 ||
+            $scope.newRegister.password.length > 20) {
             $scope.error = "password is not correct";
             return false;
         }
@@ -234,13 +236,13 @@ function RegisterDialogController($scope, $mdDialog, $resource) {
         }
         if (!$scope.newRegister.address.address ||
             $scope.newRegister.address.address === '' ||
-            $scope.newRegister.address.address > 100) {
+            $scope.newRegister.address.address.length > 100) {
             $scope.error = "address is not valid";
             return false;
         }
         if (!$scope.newRegister.address.city ||
             $scope.newRegister.address.city === '' ||
-            $scope.newRegister.address.city > 100) {
+            $scope.newRegister.address.city.length > 100) {
             $scope.error = "city is not valid";
             return false;
         }

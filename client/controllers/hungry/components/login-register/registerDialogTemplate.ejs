@@ -44,11 +44,11 @@
                     </md-input-container>
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Email address</label>
-                        <input ng-model="newRegister.email_address" name="emailAddress" required minlength="10" maxlength="30" ng-pattern="/^.+@.+\..+$/">
-                        <div class="hint" ng-if="newRegister.email_address.length === 0">Between 10 and 30 characters long.</div>
+                        <input ng-model="newRegister.email_address" name="emailAddress" required minlength="5" maxlength="30" ng-pattern="/^.+@.+\..+$/">
+                        <div class="hint" ng-if="newRegister.email_address.length === 0">Between 5 and 30 characters long.</div>
                         <div ng-messages="registerForm.emailAddress.$error" role="alert">
                             <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
-                                Your email must be between 10 and 30 characters long and look like an e-mail address.
+                                Your email must be between 5 and 30 characters long and look like an e-mail address.
                             </div>
                         </div>
                     </md-input-container>
