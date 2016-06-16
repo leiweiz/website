@@ -165,7 +165,8 @@ function RegisterDialogController($scope, $mdDialog, $resource) {
             state: '',
             zip_code: ''
         },
-        telephone: ''
+        telephone: '',
+        email_address: ''
     };
     $scope.error = '';
 
