@@ -78,8 +78,8 @@ app.controller('LoginRegisterController',
                         $window.location.href = '/hungry'; // redirect to foods pag
                     }
                 }, function(msg) {
-                    $scope.status = 'You cancelled the dialog.';
-                    $scope.showSimpleToast(msg);
+                    $scope.status = 'You cancelled the registration.';
+                    $scope.showSimpleToast(msg || $scope.status);
                 });
             $scope.$watch(function() {
                 return $mdMedia('xs') || $mdMedia('sm');
@@ -179,7 +179,7 @@ function RegisterDialogController($scope, $mdDialog, $resource) {
     };
     $scope.register = function() {
         if (!$scope.validate()) {
-            $mdDialog.cancel($scope.error || 'not valid register information');
+            console.log($scope.error);
             return;
         }
 
@@ -195,27 +195,68 @@ function RegisterDialogController($scope, $mdDialog, $resource) {
     };
     $scope.validate = function() {
         console.log($scope.newRegister);
-        if (!$scope.newRegister.first_name || $scope.newRegister.first_name === '') {
-            $scope.error = "first name is not valid";
-            return false;
+        if (!$scope.newRegister.first_name ||
+            $scope.newRegister.first_name === '' ||
+            $scope.newRegister.first_name.length < 15) {
+                $scope.error = "first name is not valid";
+                return false;
         }
-        if (!$scope.newRegister.last_name || $scope.newRegister.last_name === '') {
-            $scope.error = "last name is not valid";
-            return false;
+        if (!$scope.newRegister.last_name ||
+            $scope.newRegister.last_name === '' ||
+            $scope.newRegister.last_name.length < 15) {
+                $scope.error = "last name is not valid";
+                return false;
         }
-        if (!$scope.newRegister.login_name || $scope.newRegister.login_name === '') {
-            $scope.error = "login name is not valid";
-            return false;
+        if (!$scope.newRegister.login_name ||
+            $scope.newRegister.login_name === '' ||
+            $scope.newRegister.login_name < 6 ||
+            $scope.newRegister.login_name > 20) {
+                $scope.error = "login name is not valid";
+                return false;
         }
-        if (!$scope.newRegister.password || $scope.newRegister.password === '') {
+        if (!$scope.newRegister.email_address ||
+            $scope.newRegister.email_address === '' ||
+            !$scope.newRegister.email_address.match(/^.+@.+\..+$/)) {
+                $scope.error = "email address is not valid";
+                return false;
+            }
+        if (!$scope.newRegister.password ||
+            $scope.newRegister.password === '' ||
+            $scope.newRegister.password < 6 ||
+            $scope.newRegister.password > 20) {
             $scope.error = "password is not correct";
             return false;
         }
-        if (!$scope.newRegister.confirmed_password || $scope.newRegister.password !== $scope.newRegister.confirmed_password) {
+        if (!$scope.newRegister.confirmed_password ||
+            $scope.newRegister.password !== $scope.newRegister.confirmed_password) {
             $scope.error = "confirmed password doesn't match password";
             return false;
         }
-        // address ?
+        if (!$scope.newRegister.address.address ||
+            $scope.newRegister.address.address === '' ||
+            $scope.newRegister.address.address > 100) {
+            $scope.error = "address is not valid";
+            return false;
+        }
+        if (!$scope.newRegister.address.city ||
+            $scope.newRegister.address.city === '' ||
+            $scope.newRegister.address.city > 100) {
+            $scope.error = "city is not valid";
+            return false;
+        }
+        // TODO check state
+        if (!$scope.newRegister.address.zip_code ||
+            $scope.newRegister.address.zip_code === '' ||
+            !$scope.newRegister.address.zip_code.match(/^\d{5}$/)) {
+            $scope.error = "zip code is not valid";
+            return false;
+        }
+        if (!$scope.newRegister.telephone ||
+            $scope.newRegister.telephone === '' ||
+            !$scope.newRegister.telephone.match(/^\d{3}-\d{3}-\d{4}$/)) {
+            $scope.error = "telephone is not valid";
+            return false;
+        }
         return true;
     }
 }
