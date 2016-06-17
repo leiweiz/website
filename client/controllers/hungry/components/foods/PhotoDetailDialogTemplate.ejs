@@ -30,11 +30,14 @@
                 </md-list>
             </div>
         </md-dialog-content>
-        <md-dialog-actions layout="row" layout-xs="column">
-            <md-input-container class=" md-block" flex>
+        <md-dialog-actions layout-xs="column" layout="row">
+            <div layout="row" flex>
+            <md-input-container class="md-block" flex>
                 <label>Comment</label>
                 <input type="text" ng-model="userComment">
             </md-input-container>
+            </div>
+            <div layout="row" flex-xs>
             <md-button class="md-raised md-primary" ng-click="commentOnPhoto()">
                 <md-icon md-svg-src="/icons/comment.svg"></md-icon>
             </md-button>
