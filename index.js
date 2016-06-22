@@ -64,6 +64,10 @@ app.get('/sample-simulation', function(req, res) {
     res.render('sample-simulation');
 });
 
+app.get('/weight', function(req, res) {
+    res.render('weight');
+});
+
 //// to-do-list app
 //toDoListController(app);
 //// demo-clone app

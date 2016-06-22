@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <title>Leiwei's Website</title>
+    <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <link rel="stylesheet" href="/public/weight/mystyle.css" type="text/css">
+</head>
+<body ng-app="MyApp" layout="column" class="md-medium-tall" layout-fill ng-controller="WeightController as wc" ng-cloak>
+
+<md-toolbar layout="row" layout-align="end">
+    <div layout="column" layout-align="center">
+        <h3>Material Design Data Table</h3>
+    </div>
+    <span flex></span>
+    <div layout="column" layout-align="center">
+        <md-button aria-label="Add" class="md-fab md-mini">
+            <md-icon md-svg-src="/icons/add.svg" aria-label="Add"></md-icon>
+        </md-button>
+    </div>
+</md-toolbar>
+
+<md-content class="md-whiteframe-1dp" layout="row" flex>
+    <div ng-view flex="100"></div>
+</md-content>
+
+<footer layout="row" layout-align="center center" >
+    <md-list flex layout="row" layout-align="center center">
+        <md-list-item >
+            <md-button ng-click="selectOption('summary')">
+                <md-icon md-svg-src="/icons/summary.svg" aria-label="summary"></md-icon>
+            </md-button>
+        </md-list-item>
+        <md-list-item >
+            <md-button ng-click="selectOption('history')">
+                <md-icon md-svg-src="/icons/history.svg" aria-label="history"></md-icon>
+            </md-button>
+        </md-list-item>
+        <md-list-item >
+            <md-button ng-click="selectOption('chart')">
+                <md-icon md-svg-src="/icons/chart.svg" aria-label="chart"></md-icon>
+            </md-button>
+        </md-list-item>
+        <md-list-item >
+            <md-button ng-click="selectOption('settings')">
+                <md-icon md-svg-src="/icons/settings.svg" aria-label="settings"></md-icon>
+            </md-button>
+        </md-list-item>
+    </md-list>
+</footer>
+
+
+<script src="/modules/angular/angular.min.js"></script>
+<script src="/modules/angular-animate/angular-animate.min.js"></script>
+<script src="/modules/angular-aria/angular-aria.min.js"></script>
+<script src="/modules/angular-material/angular-material.min.js"></script>
+<script src="/modules/angular-route/angular-route.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script>
+
+
+
+<script src="/client/controllers/weight/app.js"></script>
+<script src="/client/controllers/weight/chart/chartController.js"></script>
+<script src="/client/controllers/weight/history/historyController.js"></script>
+<script src="/client/controllers/weight/settings/settingsController.js"></script>
+<script src="/client/controllers/weight/summary/summaryController.js"></script>
+
+</body>
+</html>
