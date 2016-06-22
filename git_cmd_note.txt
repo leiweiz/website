@@ -9,3 +9,5 @@ possible error:
 a) git: fatal: Could not read from remote repository
 http://stackoverflow.com/questions/13509293/git-fatal-could-not-read-from-remote-repository
 
+2. gitignore
+http://stackoverflow.com/questions/343646/ignoring-directories-in-git-repos-on-windows

@@ -12,7 +12,7 @@ var port = process.env.PORT || 3000;
 //var demoCloneController = require('./controllers/demoCloneController.js');
 
 // Load the Mongoose schema for User, Photo
-mongoose.connect('mongodb://localhost/hungry');
+// mongoose.connect('mongodb://localhost/hungry');
 var User = require('./schema/user.js');
 var Photo = require('./schema/photo.js');
 

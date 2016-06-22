@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
     <title>Leiwei's Website</title>
     <link rel="stylesheet" href="/modules/angular-material/angular-material.min.css" type="text/css">
+    <link href="/modules/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/public/weight/mystyle.css" type="text/css">
 </head>
 <body ng-app="MyApp" layout="column" class="md-medium-tall" layout-fill ng-controller="WeightController as wc" ng-cloak>
@@ -21,7 +22,7 @@
     </div>
 </md-toolbar>
 
-<md-content class="md-whiteframe-1dp" layout="row" flex>
+<md-content class="md-whiteframe-1dp" layout="column" flex>
     <div ng-view flex="100"></div>
 </md-content>
 
@@ -57,6 +58,8 @@
 <script src="/modules/angular-material/angular-material.min.js"></script>
 <script src="/modules/angular-route/angular-route.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.7.0/angular-material-icons.min.js"></script>
+<script type="text/javascript" src="/modules/angular-material-data-table/dist/md-data-table.min.js"></script>
+
 
 
 

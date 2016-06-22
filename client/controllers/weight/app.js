@@ -2,7 +2,7 @@
  * Created by lei on 6/21/16.
  */
 
-var app = angular.module('MyApp', ['ngRoute', 'ngMaterial', 'ngMdIcons'])
+var app = angular.module('MyApp', ['ngRoute', 'ngMaterial', 'ngMdIcons', 'md.data.table'])
     .run(function() {
         console.log('MyApp is ready!');
     });
