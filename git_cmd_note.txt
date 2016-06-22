@@ -1,0 +1,11 @@
+1. working on different computers
+a) ssh-keygen -t rsa -C "youremail@example.com"
+   file is genereated at root (cd ~/)
+b) add id_rsa.pub to git account
+c) git init
+d) git remote add origin git@github.com:leiweiz/website.git
+e) git pull origin master
+possible error:
+a) git: fatal: Could not read from remote repository
+http://stackoverflow.com/questions/13509293/git-fatal-could-not-read-from-remote-repository
+
