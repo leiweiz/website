@@ -2,16 +2,13 @@
     <md-content>
         <div>
             <form name="weightForm">
-                <div layout="column">
-                    <md-input-container class="md-block">
-                        <label>Date</label>
-                        <input ng-model="date">
-                    </md-input-container>
-                    <md-input-container class="md-block">
+                <div layout="column" layout-align="center center">
+                    <md-datepicker ng-model="date" md-placeholder="Enter date" flex="100"></md-datepicker>
+                    <md-input-container class="md-block" flex="100">
                         <label>Weight</label>
                         <input ng-model="weight">
                     </md-input-container>
-                    <md-button ng-click="addNewWeight()">
+                    <md-button ng-click="addNewWeight()" flex="100">
                         Add
                     </md-button>
                 </div>

@@ -96,7 +96,7 @@ app.controller('WeightController',
 app.controller('AddWeightBottomSheetCtrl',
     ['$scope', '$mdBottomSheet', 'weightDataService', '$rootScope', 
     function($scope, $mdBottomSheet, weightDataService, $rootScope) {
-        $scope.date = '';
+        $scope.date = new Date();
         $scope.weight = '';
 
         $scope.addNewWeight = function() {

@@ -11,4 +11,5 @@ app.controller('HistoryController',
         $scope.$on('weightDataService:update', function(event, args) {
             $scope.weightData = weightDataService.weightData;
         });
+
     }]);
