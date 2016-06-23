@@ -1,0 +1,21 @@
+<md-bottom-sheet class="md-grid" layout="column" ng-cloak>
+    <md-content>
+        <div>
+            <form name="weightForm">
+                <div layout="column">
+                    <md-input-container class="md-block">
+                        <label>Date</label>
+                        <input ng-model="date">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>Weight</label>
+                        <input ng-model="weight">
+                    </md-input-container>
+                    <md-button ng-click="addNewWeight()">
+                        Add
+                    </md-button>
+                </div>
+            </form>
+        </div>
+    </md-content>
+</md-bottom-sheet>

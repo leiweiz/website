@@ -3,7 +3,7 @@
  */
 
 app.controller('HistoryController',
-    ['$scope', function ($scope) {
+    ['$scope', 'weightDataService', function ($scope, weightDataService) {
 
 
     }]);
