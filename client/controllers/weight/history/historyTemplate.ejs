@@ -15,9 +15,9 @@
                 </tr>
             </thead>
             <tbody md-body>
-                <tr md-row>
-                    <td md-cell>06/22/2016 Wed</td>
-                    <td md-cell>70</td>
+                <tr md-row ng-repeat="data in weightData">
+                    <td md-cell>{{data.date}}</td>
+                    <td md-cell>{{data.weight}}</td>
                     <td md-cell>></td>
                 </tr>
             </tbody>

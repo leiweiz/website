@@ -94,7 +94,8 @@ app.controller('WeightController',
         }]);
 
 app.controller('AddWeightBottomSheetCtrl',
-    ['$scope', '$mdBottomSheet', 'weightDataService', function($scope, $mdBottomSheet, weightDataService) {
+    ['$scope', '$mdBottomSheet', 'weightDataService', '$rootScope', 
+    function($scope, $mdBottomSheet, weightDataService, $rootScope) {
         $scope.date = '';
         $scope.weight = '';
 
@@ -104,6 +105,8 @@ app.controller('AddWeightBottomSheetCtrl',
                 date: $scope.date,
                 weight: $scope.weight
             });
+
+            $rootScope.$broadcast('weightDataService:update');
             $mdBottomSheet.hide("succeed");
         }
     }]);
