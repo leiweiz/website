@@ -110,7 +110,7 @@ app.config(['$routeProvider',
                 controller: 'SettingsController'
             }).
             otherwise({
-                redirectTo: '/summary'
+                redirectTo: '/history'
             });
     }]);
 
