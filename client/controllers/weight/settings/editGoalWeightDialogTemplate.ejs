@@ -1,4 +1,13 @@
-<md-bottom-sheet class="md-grid" layout="column" ng-cloak>
+<md-dialog class="md-grid" layout="column" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Edit Goal Weight</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-svg-src="/icons/close.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
     <md-content>
         <div>
             <form name="weightForm">
@@ -14,4 +23,4 @@
             </form>
         </div>
     </md-content>
-</md-bottom-sheet>
+</md-dialog>

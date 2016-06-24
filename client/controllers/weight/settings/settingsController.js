@@ -3,22 +3,29 @@
  */
 
 app.controller('SettingsController',
-    ['$scope', 'weightDataService', '$mdBottomSheet', '$mdToast',
-        function ($scope, weightDataService, $mdBottomSheet, $mdToast) {
+    ['$scope', 'weightDataService', '$mdDialog', '$mdToast', '$mdMedia',
+        function ($scope, weightDataService, $mdDialog, $mdToast, $mdMedia) {
 
             $scope.goalWeight = weightDataService.goalWeight;
-            $scope.showEditGoalWeightBottomSheet = showEditGoalWeightBottomSheet;
+            $scope.showEditGoalDialog = showEditGoalDialog;
 
-            function showEditGoalWeightBottomSheet() {
-                $mdBottomSheet.show({
-                    templateUrl: '/client/controllers/weight/settings/editGoalWeightBottomSheet.ejs',
-                    controller: 'EditGoalWeightBottomSheetCtrl',
+            function showEditGoalDialog(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    templateUrl: '/client/controllers/weight/settings/editGoalWeightDialogTemplate.ejs',
+                    controller: 'EditGoalWeightDialogCtrl',
                     clickOutsideToClose: true
                 }).then(function(hideMsg) {
                     $scope.goalWeight = weightDataService.goalWeight;
                     $scope.showSimpleToast(hideMsg);
                 }, function(cancelMsg) {
+                    $scope.showSimpleToast(cancelMsg || 'exit');
+                });
 
+                $scope.$watch(function() {
+                    return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                    $scope.customFullscreen = (wantsFullScreen === true);
                 });
             }
 
@@ -34,14 +41,18 @@ app.controller('SettingsController',
 
         }]);
 
-app.controller('EditGoalWeightBottomSheetCtrl',
-    ['$scope', '$mdBottomSheet', 'weightDataService',
-        function($scope, $mdBottomSheet, weightDataService) {
+app.controller('EditGoalWeightDialogCtrl',
+    ['$scope', '$mdDialog', 'weightDataService',
+        function($scope, $mdDialog, weightDataService) {
             $scope.goalWeight = weightDataService.goalWeight;
+
+            $scope.cancel = function() {
+                $mdDialog.cancel('cancelled');
+            };
 
             $scope.editGoalWeight = function() {
                 // TODO: validate
                 weightDataService.goalWeight = $scope.goalWeight;
-                $mdBottomSheet.hide("succeed");
+                $mdDialog.hide("succeed");
             }
         }]);
