@@ -8,20 +8,20 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content flex layout="row" layout-align="center center">
-        <div flex>
-            <form name="weightForm">
-                <div layout="column" layout-align="center center">
-                    <md-datepicker ng-model="date" md-placeholder="Enter date" flex="100"></md-datepicker>
-                    <md-input-container class="md-block" flex="100">
-                        <label>Weight</label>
-                        <input ng-model="weight">
-                    </md-input-container>
-                    <md-button ng-click="addNewWeight()" flex="100">
-                        Add
-                    </md-button>
-                </div>
-            </form>
+    <md-content flex layout="column" layout-align="center center">
+        <div>
+            <md-datepicker ng-model="date" md-placeholder="Enter date"></md-datepicker>
         </div>
+        <form name="weightForm">
+            <div layout="column" layout-align="center center">
+                <md-input-container class="md-block" flex>
+                    <label>Weight</label>
+                    <input ng-model="weight">
+                </md-input-container>
+                <md-button class="md-raised md-primary" ng-click="addNewWeight()" flex>
+                    Add
+                </md-button>
+            </div>
+        </form>
     </md-content>
 </md-dialog>

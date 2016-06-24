@@ -169,7 +169,7 @@ app.controller('WeightController',
                 $mdToast.show(
                     $mdToast.simple()
                         .textContent(message)
-                        .position(pinTo )
+                        .position(pinTo)
                         .hideDelay(600)
                 );
             };

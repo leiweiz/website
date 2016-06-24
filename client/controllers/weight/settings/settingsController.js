@@ -14,7 +14,10 @@ app.controller('SettingsController',
                 $mdDialog.show({
                     templateUrl: '/client/controllers/weight/settings/editGoalWeightDialogTemplate.ejs',
                     controller: 'EditGoalWeightDialogCtrl',
-                    clickOutsideToClose: true
+                    clickOutsideToClose: true,
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    fullscreen: true
                 }).then(function(hideMsg) {
                     $scope.goalWeight = weightDataService.goalWeight;
                     $scope.showSimpleToast(hideMsg);
@@ -34,7 +37,7 @@ app.controller('SettingsController',
                 $mdToast.show(
                     $mdToast.simple()
                         .textContent(message)
-                        .position(pinTo )
+                        .position(pinTo)
                         .hideDelay(600)
                 );
             };

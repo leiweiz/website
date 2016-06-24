@@ -8,19 +8,17 @@
             </md-button>
         </div>
     </md-toolbar>
-    <md-content flex layout="row" layout-align="center center">
-        <div flex>
-            <form name="weightForm">
-                <div layout="column" layout-align="center center">
-                    <md-input-container class="md-block" flex="100">
-                        <label>Goal Weight</label>
-                        <input ng-model="goalWeight">
-                    </md-input-container>
-                    <md-button ng-click="editGoalWeight()" flex="100">
-                        Edit
-                    </md-button>
-                </div>
-            </form>
-        </div>
+    <md-content flex layout="column" layout-align="center center">
+        <form name="weightForm">
+            <div layout="column" layout-align="center center">
+                <md-input-container class="md-block" flex>
+                    <label>Goal Weight</label>
+                    <input ng-model="goalWeight">
+                </md-input-container>
+                <md-button class="md-raised md-primary" ng-click="editGoalWeight()" flex>
+                    Edit
+                </md-button>
+            </div>
+        </form>
     </md-content>
 </md-dialog>
