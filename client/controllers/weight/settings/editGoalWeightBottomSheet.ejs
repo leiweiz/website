@@ -1,0 +1,17 @@
+<md-bottom-sheet class="md-grid" layout="column" ng-cloak>
+    <md-content>
+        <div>
+            <form name="weightForm">
+                <div layout="column" layout-align="center center">
+                    <md-input-container class="md-block" flex="100">
+                        <label>Goal Weight</label>
+                        <input ng-model="goalWeight">
+                    </md-input-container>
+                    <md-button ng-click="editGoalWeight()" flex="100">
+                        Edit
+                    </md-button>
+                </div>
+            </form>
+        </div>
+    </md-content>
+</md-bottom-sheet>
