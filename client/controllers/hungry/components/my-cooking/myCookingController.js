@@ -20,8 +20,7 @@ app.controller('MyCookingController',
                 templateUrl: '/client/controllers/hungry/components/my-cooking/addFoodDialogTemplate.ejs',
                 parent: angular.element(document.body),
                 targetEvent: ev,
-                clickOutsideToClose:true,
-                fullscreen: useFullScreen
+                clickOutsideToClose:true
             })
                 .then(function(msg) {
                     $scope.status = 'succeed';

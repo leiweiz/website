@@ -115,12 +115,12 @@ app.config(['$routeProvider',
     }]);
 
 app.controller('WeightController',
-    ['$scope', '$location', 'weightDataService', '$mdBottomSheet', '$mdToast',
-        function($scope, $location, weightDataService, $mdBottomSheet, $mdToast) {
+    ['$scope', '$location', 'weightDataService', '$mdDialog', '$mdToast', '$mdMedia',
+        function($scope, $location, weightDataService, $mdDialog, $mdToast, $mdMedia ) {
 
             $scope.selectedOption = 'summary'; // check not null
             $scope.selectOption= selectOption;
-            $scope.showAddWeightBottomSheet = showAddWeightBottomSheet;
+            $scope.showAddWeightDialog = showAddWeightDialog;
 
             function selectOption(option) {
                 console.log('select');
@@ -128,15 +128,25 @@ app.controller('WeightController',
                 $location.path(option);
             }
 
-            function showAddWeightBottomSheet() {
-                $mdBottomSheet.show({
-                    templateUrl: '/client/controllers/weight/history/addWeightBottomSheet.ejs',
-                    controller: 'AddWeightBottomSheetCtrl',
-                    clickOutsideToClose: true
+            function showAddWeightDialog(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+                $mdDialog.show({
+                    templateUrl: '/client/controllers/weight/history/addWeightDialogTemplate.ejs',
+                    controller: 'AddWeightDialogCtrl',
+                    clickOutsideToClose: true,
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    fullscreen: true
                 }).then(function(hideMsg) {
                     $scope.showSimpleToast(hideMsg);
                 }, function(cancelMsg) {
+                    $scope.showSimpleToast(cancelMsg || 'exit');
+                });
 
+                $scope.$watch(function() {
+                    return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                    $scope.customFullscreen = (wantsFullScreen === true);
                 });
             }
 
@@ -152,11 +162,15 @@ app.controller('WeightController',
 
         }]);
 
-app.controller('AddWeightBottomSheetCtrl',
-    ['$scope', '$mdBottomSheet', 'weightDataService', '$rootScope', 
-    function($scope, $mdBottomSheet, weightDataService, $rootScope) {
+app.controller('AddWeightDialogCtrl',
+    ['$scope', '$mdDialog', 'weightDataService', '$rootScope', 
+    function($scope, $mdDialog, weightDataService, $rootScope) {
         $scope.date = new Date();
         $scope.weight = '';
+
+        $scope.cancel = function() {
+            $mdDialog.cancel('cancelled');
+        };
 
         $scope.addNewWeight = function() {
             // TODO: validate
@@ -166,6 +180,6 @@ app.controller('AddWeightBottomSheetCtrl',
             });
 
             $rootScope.$broadcast(weightDataService.Constant.updated);
-            $mdBottomSheet.hide("succeed");
+            $mdDialog.hide("succeed");
         }
     }]);
