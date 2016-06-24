@@ -55,7 +55,6 @@ app.service('graphService', function() {
     self.draw = function(canvasId, weightData, goalWeight) {
 
         data = self.parseWeightData(weightData, goalWeight);
-
         Plotly.newPlot(canvasId, data, self.layout);
     };
 
@@ -74,6 +73,9 @@ app.service('graphService', function() {
             name: 'goal'
         };
 
+        var minY = goalWeight;
+        var maxY = goalWeight;
+
         for (var i = 0; i < weightData.length; i++) {
             var d = weightData[i];
             var xVal = d.date.getDate() + '/' + (d.date.getMonth() + 1);
@@ -81,9 +83,16 @@ app.service('graphService', function() {
             weight.x.push(xVal);
             weight.y.push(d.weight);
 
+            minY = Math.min(d.weight, minY);
+            maxY = Math.max(d.weight, maxY);
+
             goal.x.push(xVal);
             goal.y.push(goalWeight);
         }
+
+        minY -= 5;
+        maxY += 5;
+        self.layout.yaxis.range = [minY, maxY];
 
         return [weight, goal];
     };
