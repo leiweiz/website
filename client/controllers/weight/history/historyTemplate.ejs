@@ -11,14 +11,12 @@
                 <tr md-row>
                     <th md-column>Date</th>
                     <th md-column md-numeric>Weight (kg)</th>
-                    <th md-column></th>
                 </tr>
             </thead>
             <tbody md-body>
                 <tr md-row ng-repeat="data in weightData">
                     <td md-cell>{{data.date.getDate()}}/{{data.date.getMonth()+1}} ({{weekday[data.date.getDay()]}})</td>
                     <td md-cell>{{data.weight}}</td>
-                    <td md-cell>></td>
                 </tr>
             </tbody>
         </table>
