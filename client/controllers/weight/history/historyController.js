@@ -6,10 +6,10 @@ app.controller('HistoryController',
     ['$scope', 'weightDataService', 
     function ($scope, weightDataService) {
 
-        $scope.weightData = weightDataService.weightData;
+        $scope.weightData = weightDataService.weightData.sort(function(a, b){return b.date- a.date});
 
         $scope.$on(weightDataService.Constant.updated, function(event, args) {
-            $scope.weightData = weightDataService.weightData;
+            $scope.weightData = weightDataService.weightData.sort(function(a, b){return b.date- a.date});
         });
 
         $scope.weekday = new Array(7);
