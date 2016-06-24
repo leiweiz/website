@@ -15,6 +15,13 @@ app.config(function($mdThemingProvider) {
 
 app.service('weightDataService', function() {
     var self = this;
+
+    self.goalWeight = 70;
+
+    self.Constant = {
+        'updated': 'weightDataService:update'
+    };
+
     self.weightData = [
         {
             date: new Date('06/11/2016'),
@@ -29,6 +36,58 @@ app.service('weightDataService', function() {
             weight: 73
         }
     ];
+});
+
+app.service('graphService', function() {
+    var self = this;
+
+    self.layout = {
+        title: 'weight chart',
+        xaxis: {
+            title: 'date'
+        },
+        yaxis: {
+            title: 'weight',
+            range: [60, 90]
+        }
+    };
+
+    self.draw = function(canvasId, weightData, goalWeight) {
+
+        data = self.parseWeightData(weightData, goalWeight);
+
+        Plotly.newPlot(canvasId, data, self.layout);
+    };
+
+    self.parseWeightData = function(weightData, goalWeight) {
+        var weight = {
+            x: [],
+            y: [],
+            type: 'scatter',
+            name: 'weight'
+        };
+
+        var goal = {
+            x: [],
+            y: [],
+            type: 'scatter',
+            name: 'goal'
+        };
+
+        for (var i = 0; i < weightData.length; i++) {
+            var d = weightData[i];
+            var xVal = d.date.getDate() + '/' + (d.date.getMonth() + 1);
+
+            weight.x.push(xVal);
+            weight.y.push(d.weight);
+
+            goal.x.push(xVal);
+            goal.y.push(goalWeight);
+        }
+
+        return [weight, goal];
+    };
+
 });
 
 app.config(['$routeProvider',
@@ -106,7 +165,7 @@ app.controller('AddWeightBottomSheetCtrl',
                 weight: $scope.weight
             });
 
-            $rootScope.$broadcast('weightDataService:update');
+            $rootScope.$broadcast(weightDataService.Constant.updated);
             $mdBottomSheet.hide("succeed");
         }
     }]);

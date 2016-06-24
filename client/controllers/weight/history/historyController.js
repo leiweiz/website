@@ -8,7 +8,7 @@ app.controller('HistoryController',
 
         $scope.weightData = weightDataService.weightData;
 
-        $scope.$on('weightDataService:update', function(event, args) {
+        $scope.$on(weightDataService.Constant.updated, function(event, args) {
             $scope.weightData = weightDataService.weightData;
         });
 
