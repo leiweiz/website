@@ -12,6 +12,13 @@ app.controller('HistoryController',
             $scope.weightData = weightDataService.weightData.sort(function(a, b){return b.date- a.date});
         });
 
+        // index is the order in ng-repeat
+        // maybe use id for weightData
+        $scope.editWeigthHistory = editWeigthHistory;        
+        function editWeigthHistory(index) {
+            console.log(index);
+        }
+
         $scope.weekday = new Array(7);
         $scope.weekday[0]=  "Sun";
         $scope.weekday[1] = "Mon";
