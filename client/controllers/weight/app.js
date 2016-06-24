@@ -118,14 +118,19 @@ app.controller('WeightController',
     ['$scope', '$location', 'weightDataService', '$mdDialog', '$mdToast', '$mdMedia',
         function($scope, $location, weightDataService, $mdDialog, $mdToast, $mdMedia ) {
 
-            $scope.selectedOption = 'summary'; // check not null
+            $scope.selectedOption = 'history';
             $scope.selectOption= selectOption;
             $scope.showAddWeightDialog = showAddWeightDialog;
+            $scope.title = getTitle();
+
+            function getTitle() {
+                return $location.path().split('/')[1];
+            }
 
             function selectOption(option) {
-                console.log('select');
                 $scope.selectedOption = option;
                 $location.path(option);
+                $scope.title = getTitle();
             }
 
             function showAddWeightDialog(ev) {
